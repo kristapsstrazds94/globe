@@ -38,16 +38,16 @@ Always read **`AGENTS.md`** and **`TASKS.md`** for the chosen task.
 
 Then read by task ID (read linked docs **fully**):
 
-| Task IDs | Also read |
-| --- | --- |
-| T001–T003 | `docs/ARCHITECTURE.md`, `docs/WORKFLOW.md` |
-| T010–T014 | `docs/ARCHITECTURE.md`, `docs/PERFORMANCE.md`, `docs/DESIGN.md` |
+| Task IDs  | Also read                                                          |
+| --------- | ------------------------------------------------------------------ |
+| T001–T003 | `docs/ARCHITECTURE.md`, `docs/WORKFLOW.md`                         |
+| T010–T014 | `docs/ARCHITECTURE.md`, `docs/PERFORMANCE.md`, `docs/DESIGN.md`    |
 | T020–T024 | `docs/GEOGRAPHY.md`, `docs/PERFORMANCE.md`, `docs/ARCHITECTURE.md` |
-| T030–T034 | `docs/ARCHITECTURE.md`, `docs/DESIGN.md`, `docs/PERFORMANCE.md` |
-| T040–T043 | `docs/DESIGN.md`, `docs/TESTING.md`, `docs/ARCHITECTURE.md` |
-| T050–T052 | `docs/DESIGN.md`, `docs/PERFORMANCE.md`, `docs/TESTING.md` |
-| T060–T064 | `docs/PERFORMANCE.md` |
-| T070–T077 | `docs/TESTING.md`, `docs/CHECKLIST.md`, `docs/WORKFLOW.md` |
+| T030–T034 | `docs/ARCHITECTURE.md`, `docs/DESIGN.md`, `docs/PERFORMANCE.md`    |
+| T040–T043 | `docs/DESIGN.md`, `docs/TESTING.md`, `docs/ARCHITECTURE.md`        |
+| T050–T052 | `docs/DESIGN.md`, `docs/PERFORMANCE.md`, `docs/TESTING.md`         |
+| T060–T064 | `docs/PERFORMANCE.md`                                              |
+| T070–T077 | `docs/TESTING.md`, `docs/CHECKLIST.md`, `docs/WORKFLOW.md`         |
 
 If editing path-scoped code, also follow the matching rule:
 

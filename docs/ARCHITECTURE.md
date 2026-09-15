@@ -165,13 +165,13 @@ Example conceptual model:
 
 ```typescript
 type Country = {
-  id: string
-  name: string
-  aliases?: string[]
-  region?: string
-  capital?: string
+  id: string;
+  name: string;
+  aliases?: string[];
+  region?: string;
+  capital?: string;
   // verified metadata only
-}
+};
 ```
 
 Do not couple geometry files to large metadata objects.

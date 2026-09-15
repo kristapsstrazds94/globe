@@ -9,6 +9,7 @@ You are working with Cursor Agent / Composer 2.5. Treat these documents as proje
 ## Mandatory reading
 
 Before changing code, read:
+
 - `TASKS.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DESIGN.md`
@@ -22,6 +23,7 @@ If a task touches a specialized area, read the corresponding document fully.
 ## Non-negotiable rules
 
 ### 1. Task discipline
+
 - Work on one task at a time unless the task explicitly contains independent subtasks.
 - Do not silently expand scope.
 - Update the task status in `TASKS.md`.
@@ -29,6 +31,7 @@ If a task touches a specialized area, read the corresponding document fully.
 - Never mark a task `DONE` without satisfying its acceptance criteria.
 
 ### 2. Architecture
+
 - Keep rendering concerns separate from application UI.
 - Keep rapidly changing frame-level state out of React state where possible.
 - Use React for declarative scene composition and HTML UI.
@@ -38,6 +41,7 @@ If a task touches a specialized area, read the corresponding document fully.
 - Avoid unnecessary abstraction until a repeated pattern is proven.
 
 ### 3. Performance
+
 - Avoid React re-renders on pointer movement, camera movement, or animation frames.
 - Reuse geometries, materials, textures, and GPU resources.
 - Never allocate objects inside `useFrame` unless unavoidable.
@@ -51,6 +55,7 @@ If a task touches a specialized area, read the corresponding document fully.
 - Keep mobile as a first-class target, not a desktop fallback.
 
 ### 4. Visual quality
+
 - The globe should remain the dominant visual element.
 - Use restrained color, subtle lighting, and intentional motion.
 - Avoid excessive bloom, gradients, glows, shadows, and UI chrome.
@@ -58,6 +63,7 @@ If a task touches a specialized area, read the corresponding document fully.
 - Never sacrifice readability for visual effects.
 
 ### 5. Accessibility
+
 - Every interactive country must have an accessible alternative.
 - Do not rely on hover as the only way to discover information.
 - Keyboard users must be able to search and select countries.
@@ -69,7 +75,9 @@ If a task touches a specialized area, read the corresponding document fully.
 - The canvas must not be the only source of country information.
 
 ### 6. Responsive behavior
+
 Support:
+
 - small mobile phones
 - large phones
 - tablets in portrait and landscape
@@ -82,13 +90,16 @@ Do not assume touch exists.
 Do not assume a large viewport exists.
 
 ### 7. Dependencies
+
 Before adding a dependency:
+
 - Check whether an existing dependency already solves the problem.
 - Prefer mature, focused packages.
 - Avoid packages that duplicate Three.js/R3F functionality.
 - Explain meaningful dependency additions in the implementation notes.
 
 ### 8. Data correctness
+
 - Never invent country metadata.
 - Preserve stable country identifiers.
 - Keep geographic geometry and metadata separate.
@@ -96,12 +107,14 @@ Before adding a dependency:
 - Document source, version, license, and preprocessing steps for geographic datasets.
 
 ### 9. Error handling
+
 - The globe must fail gracefully if optional assets/data fail.
 - Provide a useful loading state.
 - Avoid blank screens.
 - Do not expose raw implementation errors to users.
 
 ### 10. Code quality
+
 - TypeScript strictness should remain enabled.
 - Avoid `any`.
 - Keep functions/components focused.
