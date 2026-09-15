@@ -1,0 +1,20 @@
+---
+description: Geographic data pipeline and coordinate correctness
+globs: scripts/geography/**,src/lib/geo/**,src/data/geography/**
+alwaysApply: false
+---
+
+# Geography
+
+Read `docs/GEOGRAPHY.md` fully before editing.
+
+- Never process raw GeoJSON in the browser at runtime.
+- Document source, version, license, and preprocessing in `docs/GEOGRAPHY.md`.
+- Use stable country IDs — not display names as primary keys.
+- Keep geometry and metadata separate.
+- Handle MultiPolygon, antimeridian, and pole edge cases.
+- Simplify geometry at build time with deterministic output.
+- Test coordinate conversion with unit tests (equator, poles, antimeridian).
+- Country meshes sit on the sphere with controlled offset — no z-fighting or floating seams.
+
+Performance: `docs/PERFORMANCE.md` (measure vertex count, draw calls, asset size).

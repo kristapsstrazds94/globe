@@ -1,0 +1,24 @@
+---
+description: Test strategy for globe unit, integration, and E2E tests
+globs: **/*.{test,spec}.{ts,tsx}
+alwaysApply: false
+---
+
+# Testing
+
+Read `docs/TESTING.md` before adding or changing tests.
+
+Prioritize deterministic pure functions:
+
+- lat/lon → Cartesian conversion
+- centroid and camera target calculation
+- country ID normalization and search ranking
+- geometry preprocessing helpers
+
+Do not rely on fragile WebGL pixel snapshots as the primary strategy.
+
+Component/integration tests: search, selection, panel, keyboard, reduced-motion, loading/error states.
+
+E2E minimum flows: load, rotate, select, search, fly-to, close panel, keyboard navigation.
+
+On `/next` implement turns: **write** tests; **do not run** them. User runs commands and replies **`tests passed`**.

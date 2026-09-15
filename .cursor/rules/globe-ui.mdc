@@ -1,0 +1,21 @@
+---
+description: DOM UI, accessibility, and responsive layout for the globe app
+globs: src/components/ui/**,src/app/**
+alwaysApply: false
+---
+
+# Globe UI
+
+Read `docs/DESIGN.md` before editing UI.
+
+- Tooltips, search, panels, and controls are HTML/React — not 3D canvas text.
+- The canvas must not be the only source of country information.
+- Do not rely on hover as the only discovery path.
+- Keyboard users must search and select countries; focus states must be visible.
+- Use semantic HTML and labels for icon-only controls.
+- Respect `prefers-reduced-motion` for panel and fly-to transitions.
+- Mobile: bottom sheet for country details; adequate touch targets; safe-area insets.
+- Desktop: panel must not unnecessarily obscure the globe.
+- No horizontal overflow at representative mobile/tablet/desktop widths.
+
+Structure: `docs/ARCHITECTURE.md` (UI overlay layering).

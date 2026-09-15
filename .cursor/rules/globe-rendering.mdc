@@ -1,0 +1,21 @@
+---
+description: R3F/Three.js globe rendering constraints
+globs: src/components/globe/**
+alwaysApply: false
+---
+
+# Globe rendering
+
+Read `docs/ARCHITECTURE.md` and `docs/PERFORMANCE.md` before editing.
+
+- Keep frame-level state in R3F/Three.js refs — not React state or Zustand.
+- No object creation inside `useFrame` unless unavoidable; reuse vectors, colors, quaternions.
+- Prefer `BufferGeometry`. Reuse materials and textures.
+- Do not render one React DOM element per country.
+- Avoid per-country React component trees when geometry can be batched.
+- Picking/hover must not trigger broad React re-renders every frame.
+- Respect quality tiers and DPR caps from `docs/PERFORMANCE.md`.
+- Atmosphere, stars, and post-processing are progressive enhancement — core interaction must work without them.
+- WebGL failure must degrade gracefully (see `docs/ARCHITECTURE.md`).
+
+Visual tuning: `docs/DESIGN.md` (restrained, globe remains dominant).

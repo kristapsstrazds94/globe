@@ -1,0 +1,52 @@
+---
+description: World Globe product rules, doc routing, and task test handoff
+alwaysApply: true
+---
+
+# World Globe core
+
+Interactive 3D world globe. The globe is the hero. Prioritize correctness, accessibility, responsive behavior, and performance.
+
+## Doc routing (read before code)
+
+| When | Read fully |
+| --- | --- |
+| Any task or `/next` | `AGENTS.md`, `TASKS.md` |
+| Foundation / structure (T001–T003) | `docs/ARCHITECTURE.md`, `docs/WORKFLOW.md` |
+| Rendering / R3F / controls (T010–T014, T050–T051) | `docs/ARCHITECTURE.md`, `docs/PERFORMANCE.md`, `docs/DESIGN.md` |
+| Geography (T020–T024, T061) | `docs/GEOGRAPHY.md`, `docs/PERFORMANCE.md`, `docs/ARCHITECTURE.md` |
+| Interaction / UI (T030–T034, T040–T043, T052) | `docs/DESIGN.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md` |
+| Performance (T060, T062–T064) | `docs/PERFORMANCE.md` |
+| Testing / release (T070–T077) | `docs/TESTING.md`, `docs/CHECKLIST.md`, `docs/WORKFLOW.md` |
+
+Do not invent country metadata. Do not put frame-level state in React/Zustand. Do not mark `TASKS.md` `DONE` without user confirmation after manual verification.
+
+## Task protocol
+
+When the user runs `/next`, names a task ID (`T001`, `T023`), or asks to implement the next globe task:
+
+Follow `.cursor/skills/implement-globe-task/SKILL.md`.
+
+When they ask if work is done, `/verify`, or “definition of done”:
+
+Follow `.cursor/skills/definition-of-done/SKILL.md`.
+
+## Test handoff (required)
+
+Two turns in the **same chat**:
+
+1. **Implement turn** — Code (+ tests written, not run). Set `TASKS.md` to `IN PROGRESS`. Print verification commands. **Stop.** Never set `DONE`.
+2. **`tests passed` turn** — User ran checks and replied **`tests passed`**. Set `TASKS.md` to **`DONE`**. Print conventional commit subject in a `text` fence (`feat(globe): …`, `chore(ci): …`, etc. — no task ID). Confirm in one line. **Stop.** Do not `git commit` or start the next task unless asked.
+
+If the user pastes failures: fix only those, reprint commands, wait again.
+
+## Always
+
+- One task per change set unless the task lists independent subtasks.
+- Separate R3F rendering from DOM UI.
+- Reuse GPU resources; no allocations in `useFrame` when avoidable.
+- Preprocess geography at build time.
+- Respect `prefers-reduced-motion`.
+- Mobile is first-class.
+- Do not `git commit` unless asked.
+- Do not start the next task unless the user runs `/next` or asks to continue.
