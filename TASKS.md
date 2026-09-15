@@ -21,7 +21,7 @@ Set up the application with Next.js, React, TypeScript, strict TypeScript config
 
 ### T002 — Establish project structure
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Create clear boundaries for globe rendering, geographic data, application state, UI, utilities, tests, and build-time data processing.
 

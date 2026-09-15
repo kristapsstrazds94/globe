@@ -48,6 +48,29 @@ pnpm start         # Serve production build (after build)
 
 Use `pnpm install` (without `--frozen-lockfile`) when adding or updating dependencies.
 
+## Project structure
+
+Source layout follows `docs/ARCHITECTURE.md`:
+
+```text
+src/
+  app/                 # Next.js routes and global styles
+  components/
+    globe/             # R3F/Three.js rendering (client boundary)
+    ui/                # DOM UI — search, panels, tooltips, shell
+  data/                # Runtime country metadata and geography bundles
+  stores/              # Zustand application state
+  lib/
+    geo/               # Coordinate and geometry utilities
+    search/            # Country search helpers
+  types/               # Shared TypeScript types
+  tests/               # Integration / cross-module tests
+scripts/
+  geography/           # Build-time geographic preprocessing
+```
+
+Rendering (`components/globe`) and DOM UI (`components/ui`) are separate. Shared types live in `src/types/`. Module imports flow downward — types and lib must not import from components.
+
 ## Product goal
 
 Build a premium, responsive, interactive 3D world globe.
