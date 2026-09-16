@@ -11,12 +11,14 @@ import { CountryPicking } from "./CountryPicking";
 import { Earth } from "./Earth";
 import { GLOBE_GEO_SCALE, GLOBE_LIGHTING } from "./earthConfig";
 import { GlobeControls } from "./GlobeControls";
+import { GlobePerfOverlay } from "./GlobePerfOverlay";
 import { Stars } from "./Stars";
 
 /** R3F scene — stars stay fixed while the camera orbits the Earth (T014). */
 export function GlobeScene() {
   return (
     <CountriesProvider>
+      <GlobePerfOverlay />
       <GlobeControls />
       <CountryFlyTo />
       <CountryPicking />

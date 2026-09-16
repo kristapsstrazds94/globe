@@ -1,0 +1,89 @@
+{
+  "capturedAt": "2026-09-16T10:02:37.903Z",
+  "nodeVersion": "v24.19.0",
+  "geography": {
+    "sourceVersion": "5.1.1",
+    "scale": "1:50m",
+    "simplifyToleranceDegrees": 0.025,
+    "featureCount": 242,
+    "bundleBytes": 1069568,
+    "geometry": {
+      "countryCount": 242,
+      "countryFillMeshes": 242,
+      "countryFillVertices": 62595,
+      "countryFillTriangles": 59375,
+      "borderVertices": 77358,
+      "borderLineSegments": 38679,
+      "earthVertices": 4225,
+      "earthTriangles": 8192,
+      "estimatedStaticDrawCalls": {
+        "earth": 1,
+        "countryFill": 242,
+        "borders": 1,
+        "atmosphere": 1,
+        "stars": 1,
+        "minimumTotal": 246
+      }
+    }
+  },
+  "assets": [
+    {
+      "path": "public/generated/geography/countries.json",
+      "bytes": 1069568
+    }
+  ],
+  "build": {
+    "available": true,
+    "totalStaticBytes": 2874530,
+    "largestChunks": [
+      {
+        "path": ".next/static/chunks/app/page-9587e012ec0cf99b.js",
+        "bytes": 1122053
+      },
+      {
+        "path": ".next/static/chunks/e8867c6f-f6aa57c2fe5d487b.js",
+        "bytes": 378907
+      },
+      {
+        "path": ".next/static/chunks/7566a6ad-6c4bc2c5c808b46c.js",
+        "bytes": 349315
+      },
+      {
+        "path": ".next/static/chunks/framework-db582d260e7d27be.js",
+        "bytes": 219009
+      },
+      {
+        "path": ".next/static/chunks/127-abb025f7036c65ac.js",
+        "bytes": 173636
+      },
+      {
+        "path": ".next/static/chunks/251bdf5a-f64469afbf0fefa6.js",
+        "bytes": 173018
+      },
+      {
+        "path": ".next/static/chunks/adff6810-8b1d51f3f6d5059a.js",
+        "bytes": 148051
+      },
+      {
+        "path": ".next/static/chunks/main-a85e2743d2fd287e.js",
+        "bytes": 122089
+      },
+      {
+        "path": ".next/static/chunks/polyfills-42372ed130431b0a.js",
+        "bytes": 112594
+      },
+      {
+        "path": ".next/static/chunks/830-97c297c2005c3657.js",
+        "bytes": 42383
+      },
+      {
+        "path": ".next/static/css/f5969d860badb027.css",
+        "bytes": 13319
+      },
+      {
+        "path": ".next/static/chunks/pages/_error-4a3bd771b55118e2.js",
+        "bytes": 5651
+      }
+    ]
+  }
+}

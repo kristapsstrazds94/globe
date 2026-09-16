@@ -362,7 +362,7 @@ Design polished loading, WebGL unsupported, data failure, and recoverable error 
 
 ### T060 — Measure baseline performance
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Establish performance measurements on representative desktop, tablet, and mobile profiles.
 

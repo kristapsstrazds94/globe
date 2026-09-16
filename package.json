@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "geography:fetch": "tsx scripts/geography/preprocess.ts --fetch-only",
-    "geography:build": "tsx scripts/geography/preprocess.ts"
+    "geography:build": "tsx scripts/geography/preprocess.ts",
+    "perf:measure": "tsx scripts/performance/measure-baseline.ts"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",

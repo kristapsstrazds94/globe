@@ -181,7 +181,20 @@ Before claiming optimization:
 - measure bundle/asset sizes
 - test on at least one constrained mobile device/profile
 
-Record meaningful findings in the task implementation notes.
+### Baseline (T060)
+
+Establish and refresh measurements with:
+
+```bash
+pnpm build          # optional — includes .next/static sizes
+pnpm perf:measure
+```
+
+- **Automated snapshot:** `docs/generated/performance-baseline.json`
+- **Manual recording guide:** `docs/PERFORMANCE_BASELINE.md`
+- **Dev overlay:** `?perf=1` during `pnpm dev` (FPS, frame time, Chromium heap)
+
+Record meaningful findings in the baseline doc when re-measuring on real devices.
 
 ## Performance anti-patterns
 
