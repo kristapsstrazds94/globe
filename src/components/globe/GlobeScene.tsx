@@ -1,10 +1,11 @@
 "use client";
 
+import { Atmosphere } from "./Atmosphere";
 import { Earth } from "./Earth";
 import { GLOBE_LIGHTING } from "./earthConfig";
 import { Stars } from "./Stars";
 
-/** R3F scene — stars and Earth are siblings so stars stay fixed while Earth rotates. */
+/** R3F scene — stars stay fixed; Earth group rotates together in T014. */
 export function GlobeScene() {
   return (
     <>
@@ -18,7 +19,10 @@ export function GlobeScene() {
         position={GLOBE_LIGHTING.fill.position}
         intensity={GLOBE_LIGHTING.fill.intensity}
       />
-      <Earth />
+      <group>
+        <Earth />
+        <Atmosphere />
+      </group>
     </>
   );
 }

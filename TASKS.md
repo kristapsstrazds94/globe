@@ -89,7 +89,7 @@ Create a subtle, performant star background that does not distract from the Eart
 
 ### T013 — Add atmosphere
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Implement a subtle atmospheric rim/glow, preferably with a lightweight shader or layered material.
 
