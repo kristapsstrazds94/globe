@@ -31,11 +31,18 @@ export function cameraPositionForViewCenter(
   return [(wx / length) * distance, (wy / length) * distance, (wz / length) * distance];
 }
 
-/** Country fill sits above the surface to avoid z-fighting at all zoom levels (T023). */
-export const COUNTRY_LAYER_RADIUS = GLOBE_RADIUS * 1.004;
+/**
+ * Radial layer elevations only — avoid polygon offset on fill; it pushes
+ * countries behind the Earth in the depth buffer and muddies colors under light.
+ */
+export const COUNTRY_LAYER_ELEVATION = 0.0003;
+export const COUNTRY_BORDER_ELEVATION = 0.0025;
 
-/** Country borders sit above fill — no polygon offset needed (T024). */
-export const COUNTRY_BORDER_RADIUS = GLOBE_RADIUS * 1.007;
+/** Country fill — nearly flush with Earth, wins by radius over the ocean sphere (T023). */
+export const COUNTRY_LAYER_RADIUS = GLOBE_RADIUS + COUNTRY_LAYER_ELEVATION;
+
+/** Country borders — above fill, still well below the old 0.7% shell (T024). */
+export const COUNTRY_BORDER_RADIUS = GLOBE_RADIUS + COUNTRY_BORDER_ELEVATION;
 
 /** Atmosphere shell sits outside the surface (T013). */
 export const ATMOSPHERE_RADIUS = GLOBE_RADIUS * 1.06;

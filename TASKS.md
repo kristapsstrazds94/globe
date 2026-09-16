@@ -332,7 +332,7 @@ Tune Earth material, lighting, atmosphere, stars, country colors, and borders.
 
 ### T051 — Interaction animation polish
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Tune hover, selection, panel, search, and camera transitions.
 

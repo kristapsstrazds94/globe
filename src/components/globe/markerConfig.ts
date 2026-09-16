@@ -1,7 +1,7 @@
 import { COUNTRY_BORDER_RADIUS } from "./earthConfig";
 
-/** Marker base sits above country borders on the unit sphere. */
-export const COUNTRY_MARKER_RADIUS = COUNTRY_BORDER_RADIUS + 0.008;
+/** Marker base — slightly above borders; pin height provides most lift. */
+export const COUNTRY_MARKER_RADIUS = COUNTRY_BORDER_RADIUS + 0.001;
 
 export const COUNTRY_MARKER = {
   pin: {
@@ -17,8 +17,8 @@ export const COUNTRY_MARKER = {
   label: {
     /** Gap above the pin head sphere in local marker space. */
     offsetY: 0.012,
-    /** Extra pull toward the camera so the label clears the pin at grazing angles. */
-    cameraOffset: 0.04,
+    /** Small outward bump along the surface normal — stays attached when orbiting. */
+    radialOffset: 0.006,
     paddingX: 12,
     paddingY: 8,
     fontSize: 14,

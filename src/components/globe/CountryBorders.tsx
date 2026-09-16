@@ -1,12 +1,15 @@
 "use client";
 
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { LineBasicMaterial, LineSegments } from "three";
 
 import { geographyBundle } from "@/data/geography";
 import { buildMergedCountryBordersBufferGeometry } from "@/lib/geo/countryBorderGeometry";
+import { getBorderOpacityForCameraDistance } from "@/lib/globe/borderVisibility";
 
 import { COUNTRY_BORDER_MATERIAL } from "./borderConfig";
+import { GLOBE_CAMERA_CONSTRAINTS } from "./cameraConfig";
 import { COUNTRY_BORDER_RADIUS } from "./earthConfig";
 
 function createBorderMaterial(): LineBasicMaterial {
@@ -24,6 +27,15 @@ export function CountryBorders() {
   const lineRef = useRef<LineSegments>(null);
   const material = useMemo(() => createBorderMaterial(), []);
 
+  useFrame(({ camera }) => {
+    material.opacity = getBorderOpacityForCameraDistance(
+      camera.position.length(),
+      GLOBE_CAMERA_CONSTRAINTS.minDistance,
+      GLOBE_CAMERA_CONSTRAINTS.maxDistance,
+      COUNTRY_BORDER_MATERIAL.opacity,
+    );
+  });
+
   useEffect(() => {
     const line = lineRef.current;
     if (!line) {
@@ -38,7 +50,7 @@ export function CountryBorders() {
     }
 
     line.geometry = geometry;
-    line.renderOrder = 2;
+    line.renderOrder = 3;
 
     return () => {
       geometry.dispose();
@@ -51,5 +63,5 @@ export function CountryBorders() {
     };
   }, [material]);
 
-  return <lineSegments ref={lineRef} material={material} renderOrder={2} />;
+  return <lineSegments ref={lineRef} material={material} renderOrder={3} />;
 }

@@ -1,24 +1,64 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { getCountryPanelTransitionMs } from "@/lib/design/interactionMotion";
 import { getCountryById } from "@/lib/globe/countryLookup";
 import { isCountryPanelVisible } from "@/lib/ui/countryPanelVisibility";
+import { usePrefersReducedMotion } from "@/lib/hooks";
 import { useGlobeStore } from "@/stores/globeStore";
+import type { Country } from "@/types";
 
 /** Responsive country details panel — side panel on desktop, bottom sheet on mobile. */
 export function CountryPanel() {
   const selectedCountryId = useGlobeStore((state) => state.selectedCountryId);
   const isPanelOpen = useGlobeStore((state) => state.isPanelOpen);
   const setPanelOpen = useGlobeStore((state) => state.setPanelOpen);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const country = selectedCountryId ? getCountryById(selectedCountryId) : null;
   const visible = isCountryPanelVisible(isPanelOpen, selectedCountryId, country?.name ?? null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const lastCountryRef = useRef<Country | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const [hasOpenClass, setHasOpenClass] = useState(false);
+
+  if (country) {
+    lastCountryRef.current = country;
+  }
+
+  const displayCountry = country ?? lastCountryRef.current;
+  const shouldRender = visible || isClosing;
+  const panelTransitionMs = getCountryPanelTransitionMs(prefersReducedMotion);
 
   useEffect(() => {
-    if (!visible) {
-      if (previousFocusRef.current) {
+    if (visible) {
+      setIsClosing(false);
+      setHasOpenClass(false);
+      const frame = requestAnimationFrame(() => {
+        setHasOpenClass(true);
+      });
+      return () => cancelAnimationFrame(frame);
+    }
+
+    setHasOpenClass(false);
+
+    if (lastCountryRef.current) {
+      setIsClosing(true);
+      const timer = window.setTimeout(() => {
+        setIsClosing(false);
+        lastCountryRef.current = null;
+      }, panelTransitionMs);
+      return () => window.clearTimeout(timer);
+    }
+
+    setIsClosing(false);
+    return undefined;
+  }, [visible, panelTransitionMs]);
+
+  useEffect(() => {
+    if (!visible || !hasOpenClass) {
+      if (!visible && previousFocusRef.current) {
         previousFocusRef.current.focus();
         previousFocusRef.current = null;
       }
@@ -38,23 +78,24 @@ export function CountryPanel() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [visible, setPanelOpen]);
+  }, [visible, hasOpenClass, setPanelOpen]);
 
-  if (!country) {
+  if (!shouldRender || !displayCountry) {
     return null;
   }
 
   return (
     <aside
-      className={["country-panel", visible ? "country-panel--open" : ""].filter(Boolean).join(" ")}
+      className={["country-panel", hasOpenClass ? "country-panel--open" : ""]
+        .filter(Boolean)
+        .join(" ")}
       role="region"
       aria-labelledby="country-panel-title"
-      aria-hidden={visible ? "false" : "true"}
-      hidden={!visible}
+      aria-hidden={hasOpenClass ? "false" : "true"}
     >
       <header className="country-panel__header">
         <h2 id="country-panel-title" className="country-panel__title">
-          {country.name}
+          {displayCountry.name}
         </h2>
         <button
           ref={closeButtonRef}
@@ -69,7 +110,7 @@ export function CountryPanel() {
       <dl className="country-panel__meta">
         <div className="country-panel__meta-row">
           <dt className="country-panel__meta-label">Country code</dt>
-          <dd className="country-panel__meta-value">{country.id}</dd>
+          <dd className="country-panel__meta-value">{displayCountry.id}</dd>
         </div>
       </dl>
     </aside>

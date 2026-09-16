@@ -12,7 +12,8 @@ export const GLOBE_CAMERA = {
   ),
   fov: 45,
   near: 0.1,
-  far: 100,
+  /** Tighter far plane improves depth precision for country borders when zoomed out. */
+  far: 50,
 } as const;
 
 /**

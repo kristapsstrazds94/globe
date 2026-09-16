@@ -8,26 +8,26 @@ export const ATMOSPHERE_GLOW_COLOR = GLOBE_COLORS.atmosphereGlow;
 export const ATMOSPHERE_TIER_SETTINGS = {
   high: {
     enabled: true,
-    intensity: 0.34,
+    intensity: 0.19,
     power: 3.2,
     segments: 56,
   },
   medium: {
     enabled: true,
-    intensity: 0.28,
+    intensity: 0.16,
     power: 3.3,
     segments: 40,
   },
   low: {
     enabled: true,
-    intensity: 0.22,
+    intensity: 0.13,
     power: 3.4,
     segments: 28,
   },
   /** Minimal rim when reduced motion is requested. */
   reduced: {
     enabled: true,
-    intensity: 0.14,
+    intensity: 0.08,
     power: 3.6,
     segments: 24,
   },

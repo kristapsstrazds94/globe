@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { Quaternion, Vector3 } from "three";
 
-import { COUNTRY_MARKER_RADIUS } from "@/components/globe/markerConfig";
 import { lonLatToSpherePoint } from "@/lib/geo/coordinates";
 import { getCountryCentroid } from "@/lib/globe/cameraFlyTo";
 
+import { COUNTRY_MARKER_RADIUS } from "@/components/globe/markerConfig";
 import {
   getCountryMarkerLabelCenterY,
   getCountryMarkerLabelWorldPosition,

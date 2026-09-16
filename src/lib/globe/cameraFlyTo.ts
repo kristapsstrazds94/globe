@@ -10,6 +10,8 @@ const geometryByCountryId = new Map(
 
 const sphericalFrom = new Spherical();
 const sphericalTo = new Spherical();
+const directionFrom = new Vector3();
+const directionTo = new Vector3();
 
 /** Resolve a country's geographic centroid from preprocessed geometry. */
 export function getCountryCentroid(countryId: string): GeoCentroid | null {
@@ -37,6 +39,13 @@ export function getFlyToCameraPosition(
 /** Smoothstep-like easing for fly-to transitions. */
 export function easeInOutCubic(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+}
+
+/** Angular distance between two camera positions on the orbit shell (radians). */
+export function getAngularCameraDistance(from: Vector3, to: Vector3): number {
+  directionFrom.copy(from).normalize();
+  directionTo.copy(to).normalize();
+  return directionFrom.angleTo(directionTo);
 }
 
 /**

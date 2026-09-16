@@ -16,12 +16,16 @@ import {
 } from "@/components/globe/earthConfig";
 
 describe("globe scale layers", () => {
-  it("places country layer above Earth surface", () => {
+  it("places country layer above Earth surface with a minimal elevation", () => {
     expect(COUNTRY_LAYER_RADIUS).toBeGreaterThan(GLOBE_RADIUS);
+    expect(COUNTRY_LAYER_RADIUS - GLOBE_RADIUS).toBeLessThan(0.001);
   });
 
-  it("places country borders above fill layer", () => {
+  it("places country borders above fill with enough separation for line visibility", () => {
     expect(COUNTRY_BORDER_RADIUS).toBeGreaterThan(COUNTRY_LAYER_RADIUS);
+    expect(COUNTRY_BORDER_RADIUS - COUNTRY_LAYER_RADIUS).toBeGreaterThan(0.001);
+    // Still far below the old 0.7% shell that caused visible floating at the limb.
+    expect(COUNTRY_BORDER_RADIUS - GLOBE_RADIUS).toBeLessThan(0.004);
   });
 
   it("places atmosphere outside country layer", () => {

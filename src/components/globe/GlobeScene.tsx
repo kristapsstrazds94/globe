@@ -6,9 +6,8 @@ import { Countries } from "./Countries";
 import { CountriesProvider } from "./CountriesContext";
 import { CountryFlyTo } from "./CountryFlyTo";
 import { CountryMarkerLabelLayer, CountryMarkerPinLayer } from "./CountryMarker";
-import { CountryHoverVisual } from "./CountryHoverVisual";
+import { CountryFillVisual } from "./CountryFillVisual";
 import { CountryPicking } from "./CountryPicking";
-import { CountrySelectionVisual } from "./CountrySelectionVisual";
 import { Earth } from "./Earth";
 import { GLOBE_GEO_SCALE, GLOBE_LIGHTING } from "./earthConfig";
 import { GlobeControls } from "./GlobeControls";
@@ -21,8 +20,6 @@ export function GlobeScene() {
       <GlobeControls />
       <CountryFlyTo />
       <CountryPicking />
-      <CountryHoverVisual />
-      <CountrySelectionVisual />
       <CountryMarkerLabelLayer />
       <Stars />
       <group scale={GLOBE_GEO_SCALE}>
@@ -46,6 +43,7 @@ export function GlobeScene() {
         />
         <Earth />
         <Countries />
+        <CountryFillVisual />
         <CountryBorders />
         <CountryMarkerPinLayer />
         <Atmosphere />

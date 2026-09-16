@@ -5,6 +5,7 @@ import { GLOBE_CAMERA, GLOBE_CAMERA_CONSTRAINTS } from "@/components/globe/camer
 import { cameraPositionForViewCenter } from "@/components/globe/earthConfig";
 import {
   easeInOutCubic,
+  getAngularCameraDistance,
   getCountryCentroid,
   getFlyToCameraPosition,
   interpolateCameraPosition,
@@ -75,6 +76,20 @@ describe("interpolateCameraPosition", () => {
 
     expect(start.distanceTo(from)).toBeLessThan(1e-6);
     expect(end.distanceTo(to)).toBeLessThan(1e-6);
+  });
+});
+
+describe("getAngularCameraDistance", () => {
+  it("returns zero for identical directions", () => {
+    const position = new Vector3(...cameraPositionForViewCenter(10, 50, 3.5));
+    expect(getAngularCameraDistance(position, position.clone())).toBe(0);
+  });
+
+  it("returns a larger angle for opposite-facing positions", () => {
+    const near = new Vector3(...cameraPositionForViewCenter(0, 0, 3.5));
+    const far = new Vector3(...cameraPositionForViewCenter(180, 0, 3.5));
+
+    expect(getAngularCameraDistance(near, far)).toBeCloseTo(Math.PI, 3);
   });
 });
 

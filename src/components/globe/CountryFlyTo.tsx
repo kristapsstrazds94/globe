@@ -6,7 +6,11 @@ import { Vector3 } from "three";
 import type { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import { usePrefersReducedMotion } from "@/lib/hooks";
-import { getFlyToCameraPosition, interpolateCameraPosition } from "@/lib/globe/cameraFlyTo";
+import {
+  getAngularCameraDistance,
+  getFlyToCameraPosition,
+  interpolateCameraPosition,
+} from "@/lib/globe/cameraFlyTo";
 import { useGlobeStore } from "@/stores/globeStore";
 
 import { GLOBE_CAMERA_FLY_TO, getFlyToDurationMs } from "./flyToConfig";
@@ -68,7 +72,8 @@ export function CountryFlyTo() {
 
     targetPosition.set(...nextPosition);
 
-    const duration = getFlyToDurationMs(prefersReducedMotionRef.current);
+    const travelAngle = getAngularCameraDistance(cameraRef.current.position, targetPosition);
+    const duration = getFlyToDurationMs(prefersReducedMotionRef.current, travelAngle);
     if (duration === 0) {
       cancelFlyToRef.current();
       cameraRef.current.position.copy(targetPosition);

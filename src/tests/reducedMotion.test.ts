@@ -11,8 +11,9 @@ describe("getFlyToDurationMs", () => {
     expect(getFlyToDurationMs(true)).toBe(0);
   });
 
-  it("uses the default duration otherwise", () => {
+  it("uses the minimum duration for no travel otherwise", () => {
     expect(getFlyToDurationMs(false)).toBe(GLOBE_CAMERA_FLY_TO.durationMs);
+    expect(getFlyToDurationMs(false, Math.PI)).toBe(GLOBE_CAMERA_FLY_TO.maxDurationMs);
   });
 });
 

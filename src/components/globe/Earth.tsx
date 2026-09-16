@@ -34,5 +34,5 @@ export function Earth() {
     };
   }, [geometry, material]);
 
-  return <mesh geometry={geometry} material={material} />;
+  return <mesh geometry={geometry} material={material} renderOrder={0} />;
 }
