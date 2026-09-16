@@ -7,13 +7,14 @@ import { OrbitControls as ThreeOrbitControls } from "three/examples/jsm/controls
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
 import { GLOBE_CAMERA_CONSTRAINTS } from "./cameraConfig";
-import { GLOBE_CONTROLS } from "./controlsConfig";
+import { GLOBE_CONTROLS, getControlsDampingSettings } from "./controlsConfig";
 import { orbitGlobeByStep, resetGlobeView, zoomGlobeByScale } from "./globeControlsNavigation";
 import { useGlobeControlsContext } from "./GlobeControlsContext";
 
 function applyDamping(controls: ThreeOrbitControls, prefersReducedMotion: boolean): void {
-  controls.enableDamping = !prefersReducedMotion;
-  controls.dampingFactor = prefersReducedMotion ? 0 : GLOBE_CONTROLS.dampingFactor;
+  const damping = getControlsDampingSettings(prefersReducedMotion);
+  controls.enableDamping = damping.enableDamping;
+  controls.dampingFactor = damping.dampingFactor;
 }
 
 /** Pointer, touch, and wheel/pinch orbit controls with camera limits (T014). */

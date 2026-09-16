@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 
 import { getCountryById } from "@/lib/globe/countryLookup";
-import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 import { isCountryPanelVisible } from "@/lib/ui/countryPanelVisibility";
 import { useGlobeStore } from "@/stores/globeStore";
 
@@ -14,7 +13,6 @@ export function CountryPanel() {
   const setPanelOpen = useGlobeStore((state) => state.setPanelOpen);
   const country = selectedCountryId ? getCountryById(selectedCountryId) : null;
   const visible = isCountryPanelVisible(isPanelOpen, selectedCountryId, country?.name ?? null);
-  const prefersReducedMotion = usePrefersReducedMotion();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
@@ -47,13 +45,7 @@ export function CountryPanel() {
 
   return (
     <aside
-      className={[
-        "country-panel",
-        visible ? "country-panel--open" : "",
-        prefersReducedMotion ? "country-panel--reduced-motion" : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["country-panel", visible ? "country-panel--open" : ""].filter(Boolean).join(" ")}
       role="region"
       aria-labelledby="country-panel-title"
       aria-hidden={visible ? "false" : "true"}

@@ -468,10 +468,6 @@ main {
     opacity 180ms ease;
 }
 
-.country-panel--reduced-motion {
-  transition: none;
-}
-
 .country-panel__header {
   display: flex;
   align-items: flex-start;
@@ -578,5 +574,15 @@ main {
   .country-panel--open {
     transform: translate3d(0, 0, 0);
     opacity: 1;
+  }
+}
+
+/* --- Reduced motion (T042) --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-app__skip-link,
+  .country-tooltip,
+  .country-panel {
+    transition: none;
   }
 }

@@ -8,3 +8,10 @@ export const GLOBE_CAMERA_FLY_TO = {
   reducedMotionDurationMs: 0,
   easing: easeInOutCubic,
 } as const;
+
+/** Fly-to duration — instant when reduced motion is preferred (T042). */
+export function getFlyToDurationMs(prefersReducedMotion: boolean): number {
+  return prefersReducedMotion
+    ? GLOBE_CAMERA_FLY_TO.reducedMotionDurationMs
+    : GLOBE_CAMERA_FLY_TO.durationMs;
+}

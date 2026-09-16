@@ -288,7 +288,7 @@ Provide a non-canvas accessible country navigation path.
 
 ### T042 — Reduced-motion support
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Respect `prefers-reduced-motion`.
 

@@ -9,3 +9,20 @@ export const GLOBE_CONTROLS = {
   /** Multiplier passed to OrbitControls dollyIn/dollyOut for keyboard and UI zoom. */
   keyboardZoomScale: 1.12,
 } as const;
+
+export type ControlsDampingSettings = {
+  enableDamping: boolean;
+  dampingFactor: number;
+};
+
+/** OrbitControls damping — disabled when reduced motion is preferred (T042). */
+export function getControlsDampingSettings(prefersReducedMotion: boolean): ControlsDampingSettings {
+  if (prefersReducedMotion) {
+    return { enableDamping: false, dampingFactor: 0 };
+  }
+
+  return {
+    enableDamping: true,
+    dampingFactor: GLOBE_CONTROLS.dampingFactor,
+  };
+}

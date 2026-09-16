@@ -9,7 +9,7 @@ import { usePrefersReducedMotion } from "@/lib/hooks";
 import { getFlyToCameraPosition, interpolateCameraPosition } from "@/lib/globe/cameraFlyTo";
 import { useGlobeStore } from "@/stores/globeStore";
 
-import { GLOBE_CAMERA_FLY_TO } from "./flyToConfig";
+import { GLOBE_CAMERA_FLY_TO, getFlyToDurationMs } from "./flyToConfig";
 import { getCameraDistance } from "./globeControlsNavigation";
 import { useGlobeControlsContext } from "./GlobeControlsContext";
 
@@ -68,7 +68,8 @@ export function CountryFlyTo() {
 
     targetPosition.set(...nextPosition);
 
-    if (prefersReducedMotionRef.current) {
+    const duration = getFlyToDurationMs(prefersReducedMotionRef.current);
+    if (duration === 0) {
       cancelFlyToRef.current();
       cameraRef.current.position.copy(targetPosition);
       controls.update();
@@ -79,10 +80,20 @@ export function CountryFlyTo() {
       from: cameraRef.current.position.clone(),
       to: targetPosition.clone(),
       startTime: performance.now(),
-      duration: GLOBE_CAMERA_FLY_TO.durationMs,
+      duration,
     };
     controls.enabled = false;
   };
+
+  useEffect(() => {
+    const animation = animationRef.current;
+    if (!prefersReducedMotion || !animation) {
+      return;
+    }
+
+    cameraRef.current.position.copy(animation.to);
+    cancelFlyToRef.current();
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     registerFlyTo({
