@@ -2,11 +2,13 @@
 
 import { Earth } from "./Earth";
 import { GLOBE_LIGHTING } from "./earthConfig";
+import { Stars } from "./Stars";
 
-/** R3F scene — Earth base layer; stars, atmosphere, and countries follow in later tasks. */
+/** R3F scene — stars and Earth are siblings so stars stay fixed while Earth rotates. */
 export function GlobeScene() {
   return (
     <>
+      <Stars />
       <ambientLight intensity={GLOBE_LIGHTING.ambientIntensity} />
       <directionalLight
         position={GLOBE_LIGHTING.directional.position}

@@ -76,7 +76,7 @@ Render a clean sphere with appropriate scale, lighting, material, and camera com
 
 ### T012 — Add star field
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Create a subtle, performant star background that does not distract from the Earth.
 

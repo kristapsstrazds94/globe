@@ -130,7 +130,7 @@ For each task:
 2. Inspect existing code before modifying it.
 3. Identify the smallest implementation that satisfies the task.
 4. Implement.
-5. Run formatting/lint/typecheck/tests relevant to the task.
+5. Run formatting/lint/typecheck/tests relevant to the task (use **`pnpm`**, never `npm` — see `docs/TESTING.md`).
 6. Manually verify responsive behavior if UI/rendering changed.
 7. Check for performance regressions.
 8. Update `TASKS.md`.

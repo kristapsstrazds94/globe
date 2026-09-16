@@ -34,7 +34,7 @@ Follow `AGENTS.md`, the skill, and the task’s acceptance criteria.
 
 1. Set the task in `TASKS.md` to **`IN PROGRESS`** if it was `NOT STARTED`. **Never set `DONE` in this step.**
 2. Set **`BLOCKED`** only if there is a genuine external blocker; document **Blocker** and **Unblock** under the task.
-3. Print the **manual verification commands** the user should run (only what applies to this task).
+3. Print the **manual verification commands** the user should run (only what applies to this task). **Always use `pnpm`, never `npm`.**
 4. List any manual checks from the acceptance criteria that cannot be automated.
 5. End with one line: reply **`tests passed`** when verification is green.
 6. **Stop.** Keep the message short — commands and manual checks first, minimal recap. Do not print a commit message on this turn.

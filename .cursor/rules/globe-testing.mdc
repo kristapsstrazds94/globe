@@ -21,4 +21,4 @@ Component/integration tests: search, selection, panel, keyboard, reduced-motion,
 
 E2E minimum flows: load, rotate, select, search, fly-to, close panel, keyboard navigation.
 
-On `/next` implement turns: **write** tests; **do not run** them. User runs commands and replies **`tests passed`**.
+On `/next` implement turns: **write** tests; **do not run** them. User runs **`pnpm`** verification commands (never `npm`) and replies **`tests passed`**.

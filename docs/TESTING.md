@@ -1,5 +1,20 @@
 # Testing and QA
 
+## Verification commands
+
+This project uses **pnpm** exclusively (`packageManager` in `package.json`). Do not use `npm run …` — it ignores pnpm settings and may warn on `.npmrc` options meant for pnpm.
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm dev          # manual UI / WebGL checks
+pnpm format:check # optional formatting gate
+```
+
+CI runs the same sequence (see `.github/workflows/ci.yml` and `README.md`).
+
 ## Test layers
 
 Use multiple layers:

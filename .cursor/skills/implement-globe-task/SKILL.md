@@ -86,12 +86,12 @@ Inspect existing code. Match local structure from `docs/ARCHITECTURE.md`. Do not
 ## 5. Finish (implement turn)
 
 1. Set `TASKS.md` to **`IN PROGRESS`** (never **`DONE`** here).
-2. Print verification commands that apply (only what exists after this task), e.g.:
-   - `npm run lint`
-   - `npm run typecheck`
-   - `npm test`
-   - `npm run build`
-   - `npm run dev` (when manual UI/WebGL check is needed)
+2. Print verification commands that apply (only what exists after this task). **Always use `pnpm`, never `npm`** — this repo is pnpm-only (`packageManager` in `package.json`):
+   - `pnpm lint`
+   - `pnpm typecheck`
+   - `pnpm test`
+   - `pnpm build`
+   - `pnpm dev` (when manual UI/WebGL check is needed)
 3. List manual checks from acceptance criteria (responsive, keyboard, reduced-motion, geography edge cases).
 4. One line: reply **`tests passed`** when green.
 5. **Stop.** Do not print a commit message on this turn.

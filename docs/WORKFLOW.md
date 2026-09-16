@@ -32,12 +32,16 @@ Do not combine unrelated refactors with feature work.
 
 ## After implementation
 
-Run the smallest meaningful verification first:
+Run the smallest meaningful verification first (always **`pnpm`**, never `npm`):
 
-- typecheck
-- lint
-- unit tests
-- build
+```bash
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm build
+```
+
+For UI/rendering tasks, also run `pnpm dev` for manual inspection.
 
 For UI/rendering tasks additionally perform:
 

@@ -35,7 +35,7 @@ Follow `.cursor/skills/definition-of-done/SKILL.md`.
 
 Two turns in the **same chat**:
 
-1. **Implement turn** — Code (+ tests written, not run). Set `TASKS.md` to `IN PROGRESS`. Print verification commands. **Stop.** Never set `DONE`.
+1. **Implement turn** — Code (+ tests written, not run). Set `TASKS.md` to `IN PROGRESS`. Print verification commands using **`pnpm`** (never `npm`). **Stop.** Never set `DONE`.
 2. **`tests passed` turn** — User ran checks and replied **`tests passed`**. Set `TASKS.md` to **`DONE`**. Print conventional commit subject in a `text` fence (`feat(globe): …`, `chore(ci): …`, etc. — no task ID). Confirm in one line. **Stop.** Do not `git commit` or start the next task unless asked.
 
 If the user pastes failures: fix only those, reprint commands, wait again.
