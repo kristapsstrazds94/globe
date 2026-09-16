@@ -25,7 +25,8 @@ export function CountryPanel() {
       return;
     }
 
-    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    previousFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {

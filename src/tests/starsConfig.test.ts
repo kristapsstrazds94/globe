@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   STARS_MAX_COUNT,
   STARS_RADIUS,
+  buildStarField,
   buildStarPositions,
   getStarCount,
   getStarQualityTier,
@@ -34,6 +35,31 @@ describe("getStarCount", () => {
     const reduced = getStarCount(1280, true);
 
     expect(reduced).toBeLessThan(desktop);
+  });
+});
+
+describe("buildStarField", () => {
+  it("varies star size and color across the field", () => {
+    const field = buildStarField(64, STARS_RADIUS);
+    const uniqueSizes = new Set(Array.from(field.sizes).map((size) => size.toFixed(3)));
+    const uniqueColors = new Set(
+      Array.from({ length: 64 }, (_, i) => {
+        const base = i * 3;
+        return `${field.colors[base]!.toFixed(2)},${field.colors[base + 1]!.toFixed(2)},${field.colors[base + 2]!.toFixed(2)}`;
+      }),
+    );
+
+    expect(uniqueSizes.size).toBeGreaterThan(1);
+    expect(uniqueColors.size).toBeGreaterThan(1);
+  });
+
+  it("is deterministic for the same count", () => {
+    const first = buildStarField(16, STARS_RADIUS);
+    const second = buildStarField(16, STARS_RADIUS);
+
+    expect(Array.from(first.positions)).toEqual(Array.from(second.positions));
+    expect(Array.from(first.colors)).toEqual(Array.from(second.colors));
+    expect(Array.from(first.sizes)).toEqual(Array.from(second.sizes));
   });
 });
 

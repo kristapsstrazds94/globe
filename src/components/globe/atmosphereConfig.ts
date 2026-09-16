@@ -1,33 +1,34 @@
+import { GLOBE_COLORS } from "@/lib/design/globeTokens";
+
 const MOBILE_BREAKPOINT_PX = 768;
 const TABLET_BREAKPOINT_PX = 1024;
 
-/** Cool blue rim glow — restrained per docs/DESIGN.md. */
-export const ATMOSPHERE_GLOW_COLOR = "#5a9fd4";
+export const ATMOSPHERE_GLOW_COLOR = GLOBE_COLORS.atmosphereGlow;
 
 export const ATMOSPHERE_TIER_SETTINGS = {
   high: {
     enabled: true,
-    intensity: 0.52,
-    power: 2.75,
-    segments: 48,
+    intensity: 0.34,
+    power: 3.2,
+    segments: 56,
   },
   medium: {
     enabled: true,
-    intensity: 0.4,
-    power: 3.0,
-    segments: 36,
+    intensity: 0.28,
+    power: 3.3,
+    segments: 40,
   },
   low: {
     enabled: true,
-    intensity: 0.26,
-    power: 3.25,
-    segments: 24,
+    intensity: 0.22,
+    power: 3.4,
+    segments: 28,
   },
   /** Minimal rim when reduced motion is requested. */
   reduced: {
     enabled: true,
-    intensity: 0.16,
-    power: 3.5,
+    intensity: 0.14,
+    power: 3.6,
     segments: 24,
   },
 } as const;
@@ -63,10 +64,13 @@ export const ATMOSPHERE_SHADER = {
 
     void main() {
       vec3 viewDirection = normalize(cameraPosition - vWorldPosition);
-      float fresnel = 1.0 - clamp(dot(viewDirection, vNormal), 0.0, 1.0);
+      vec3 normal = normalize(vNormal);
+
+      float fresnel = 1.0 - clamp(dot(viewDirection, normal), 0.0, 1.0);
       fresnel = pow(fresnel, power);
-      fresnel = smoothstep(0.0, 1.0, fresnel);
-      float alpha = fresnel * intensity;
+      float limb = smoothstep(0.12, 1.0, fresnel);
+
+      float alpha = limb * intensity;
       gl_FragColor = vec4(glowColor, alpha);
     }
   `,

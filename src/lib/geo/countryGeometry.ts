@@ -5,6 +5,13 @@ import type { ProcessedGeometry } from "@/types/geography";
 import { processedGeometryToSpherePolygons } from "./geometry";
 import { triangulateSpherePolygon } from "./sphereTriangulation";
 
+/** Append without spread — large meshes exceed the JS argument limit. */
+function appendNumbers(target: number[], source: readonly number[]): void {
+  for (let index = 0; index < source.length; index += 1) {
+    target.push(source[index]!);
+  }
+}
+
 /** Flip triangles whose face normal points toward the sphere interior. */
 function ensureOutwardFacingIndices(positions: number[], indices: number[]): void {
   for (let index = 0; index < indices.length; index += 3) {
@@ -62,7 +69,7 @@ export function buildCountryBufferGeometry(
       continue;
     }
 
-    positions.push(...triangulation.positions);
+    appendNumbers(positions, triangulation.positions);
 
     for (const index of triangulation.indices) {
       indices.push(index + vertexBase);

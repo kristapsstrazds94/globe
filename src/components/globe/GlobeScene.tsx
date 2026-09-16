@@ -5,6 +5,7 @@ import { CountryBorders } from "./CountryBorders";
 import { Countries } from "./Countries";
 import { CountriesProvider } from "./CountriesContext";
 import { CountryFlyTo } from "./CountryFlyTo";
+import { CountryMarkerLabelLayer, CountryMarkerPinLayer } from "./CountryMarker";
 import { CountryHoverVisual } from "./CountryHoverVisual";
 import { CountryPicking } from "./CountryPicking";
 import { CountrySelectionVisual } from "./CountrySelectionVisual";
@@ -22,20 +23,31 @@ export function GlobeScene() {
       <CountryPicking />
       <CountryHoverVisual />
       <CountrySelectionVisual />
+      <CountryMarkerLabelLayer />
       <Stars />
-      <ambientLight intensity={GLOBE_LIGHTING.ambientIntensity} />
-      <directionalLight
-        position={GLOBE_LIGHTING.directional.position}
-        intensity={GLOBE_LIGHTING.directional.intensity}
-      />
-      <directionalLight
-        position={GLOBE_LIGHTING.fill.position}
-        intensity={GLOBE_LIGHTING.fill.intensity}
-      />
       <group scale={GLOBE_GEO_SCALE}>
+        <hemisphereLight
+          args={[
+            GLOBE_LIGHTING.hemisphere.skyColor,
+            GLOBE_LIGHTING.hemisphere.groundColor,
+            GLOBE_LIGHTING.hemisphere.intensity,
+          ]}
+        />
+        <ambientLight intensity={GLOBE_LIGHTING.ambientIntensity} />
+        <directionalLight
+          position={GLOBE_LIGHTING.directional.position}
+          color={GLOBE_LIGHTING.directional.color}
+          intensity={GLOBE_LIGHTING.directional.intensity}
+        />
+        <directionalLight
+          position={GLOBE_LIGHTING.fill.position}
+          color={GLOBE_LIGHTING.fill.color}
+          intensity={GLOBE_LIGHTING.fill.intensity}
+        />
         <Earth />
         <Countries />
         <CountryBorders />
+        <CountryMarkerPinLayer />
         <Atmosphere />
       </group>
     </CountriesProvider>

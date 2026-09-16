@@ -1,20 +1,27 @@
-/** Muted country fill per docs/DESIGN.md — slightly lighter than Earth for contrast. */
+import { GLOBE_COLORS, GLOBE_MATERIAL } from "@/lib/design/globeTokens";
+
+/** Muted country fill — slightly lighter than Earth for contrast. */
 export const COUNTRY_MATERIAL = {
-  color: "#2a3d5c",
-  roughness: 0.78,
-  metalness: 0.06,
+  color: GLOBE_COLORS.countryDefault,
+  roughness: GLOBE_MATERIAL.countryDefault.roughness,
+  metalness: GLOBE_MATERIAL.countryDefault.metalness,
 } as const;
 
-/** Brighter cool blue hover fill per docs/DESIGN.md. */
+/** Brighter cool blue hover fill. */
 export const COUNTRY_HOVER_MATERIAL = {
-  color: "#3d5a8a",
-  roughness: 0.72,
-  metalness: 0.08,
+  color: GLOBE_COLORS.countryHover,
+  roughness: GLOBE_MATERIAL.countryHover.roughness,
+  metalness: GLOBE_MATERIAL.countryHover.metalness,
 } as const;
 
-/** Restrained cyan/teal selection accent per docs/DESIGN.md. */
+/** Warm amber selection — pops against green land and hover. */
 export const COUNTRY_SELECTION_MATERIAL = {
-  color: "#2a8a9e",
-  roughness: 0.68,
-  metalness: 0.1,
+  color: GLOBE_COLORS.countrySelected,
+  emissive: GLOBE_COLORS.countrySelectedEmissive,
+  roughness: GLOBE_MATERIAL.countrySelected.roughness,
+  metalness: GLOBE_MATERIAL.countrySelected.metalness,
+  emissiveIntensity: GLOBE_MATERIAL.countrySelected.emissiveIntensity,
 } as const;
+
+export type CountryFillMaterialConfig =
+  typeof COUNTRY_MATERIAL | typeof COUNTRY_HOVER_MATERIAL | typeof COUNTRY_SELECTION_MATERIAL;

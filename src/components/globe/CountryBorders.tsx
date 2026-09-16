@@ -12,7 +12,10 @@ import { COUNTRY_BORDER_RADIUS } from "./earthConfig";
 function createBorderMaterial(): LineBasicMaterial {
   return new LineBasicMaterial({
     color: COUNTRY_BORDER_MATERIAL.color,
-    depthWrite: true,
+    transparent: true,
+    opacity: COUNTRY_BORDER_MATERIAL.opacity,
+    depthTest: true,
+    depthWrite: false,
   });
 }
 

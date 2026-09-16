@@ -8,7 +8,11 @@ import {
   spherePointLengthSquared,
 } from "@/lib/geo/coordinates";
 import { processedGeometryToSpherePolygons } from "@/lib/geo/geometry";
-import { openRingVertices, triangulateSpherePolygon } from "@/lib/geo/sphereTriangulation";
+import {
+  openRingVertices,
+  triangulateSphereFan,
+  triangulateSpherePolygon,
+} from "@/lib/geo/sphereTriangulation";
 
 const R = DEFAULT_SPHERE_RADIUS;
 const COUNTRY_R = R * 1.002;
@@ -74,7 +78,7 @@ describe("triangulateSpherePolygon", () => {
 
     const result = triangulateSpherePolygon(rings[0]!, COUNTRY_R);
 
-    expect(result.vertexCount).toBe(4);
+    expect(result.vertexCount).toBeGreaterThanOrEqual(4);
     expect(result.indices.length).toBeGreaterThanOrEqual(6);
 
     for (let index = 0; index < result.positions.length; index += 3) {
@@ -91,6 +95,28 @@ describe("triangulateSpherePolygon", () => {
     const result = triangulateSpherePolygon([[lonLatPositionToSpherePoint([0, 0], R)]], COUNTRY_R);
 
     expect(result.indices).toHaveLength(0);
+  });
+
+  it("uses one pane per boundary edge in fan triangulation", () => {
+    const rings = processedGeometryToSpherePolygons(
+      {
+        type: "Polygon",
+        coordinates: [
+          [
+            [0, 0],
+            [2, 0],
+            [2, 2],
+            [0, 2],
+            [0, 0],
+          ],
+        ],
+      },
+      COUNTRY_R,
+    );
+
+    const result = triangulateSphereFan(rings[0]![0]!, COUNTRY_R);
+
+    expect(result.indices.length / 3).toBe(result.vertexCount - 1);
   });
 });
 

@@ -135,7 +135,17 @@ export function GlobeControls() {
   }, [prefersReducedMotion]);
 
   useFrame(() => {
-    controlsRef.current?.update();
+    const controls = controlsRef.current;
+    if (!controls) {
+      return;
+    }
+
+    controls.update();
+
+    const distance = camera.position.distanceTo(controls.target);
+    camera.near = Math.max(0.05, distance / 200);
+    camera.far = Math.max(GLOBE_CAMERA_CONSTRAINTS.maxDistance * 4, distance * 8);
+    camera.updateProjectionMatrix();
   });
 
   return null;

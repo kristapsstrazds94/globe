@@ -148,7 +148,10 @@ export function CountryBrowseTrigger() {
       aria-label="Browse countries"
       onClick={open}
     >
-      <span aria-hidden="true" className="country-browse__trigger-text country-browse__trigger-text--full">
+      <span
+        aria-hidden="true"
+        className="country-browse__trigger-text country-browse__trigger-text--full"
+      >
         Browse countries
       </span>
       <span

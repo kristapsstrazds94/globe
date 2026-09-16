@@ -10,9 +10,9 @@ import {
 describe("countrySelection", () => {
   describe("isTapGesture", () => {
     it("returns true when movement is within the tap threshold", () => {
-      expect(
-        isTapGesture({ clientX: 100, clientY: 200 }, { clientX: 103, clientY: 201 }),
-      ).toBe(true);
+      expect(isTapGesture({ clientX: 100, clientY: 200 }, { clientX: 103, clientY: 201 })).toBe(
+        true,
+      );
     });
 
     it("returns false when movement exceeds the tap threshold", () => {

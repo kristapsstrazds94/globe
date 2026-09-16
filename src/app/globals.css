@@ -19,7 +19,7 @@ body {
 }
 
 body {
-  background: #05070d;
+  background: #020408;
   color: #e8edf5;
   font-family:
     system-ui,
@@ -47,7 +47,7 @@ main {
 .globe-app__background {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 30%, #0c1424 0%, #05070d 70%);
+  background: radial-gradient(ellipse at 50% 45%, #061018 0%, #03060c 50%, #020408 100%);
   pointer-events: none;
 }
 
@@ -98,11 +98,8 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding:
-    max(1.5rem, env(safe-area-inset-top))
-    max(1.5rem, env(safe-area-inset-right))
-    max(1.5rem, env(safe-area-inset-bottom))
-    max(1.5rem, env(safe-area-inset-left));
+  padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
   pointer-events: none;
 }
 
@@ -383,11 +380,8 @@ main {
 
 @media (max-width: 47.99rem) {
   .globe-app__overlay {
-    padding:
-      max(0.75rem, env(safe-area-inset-top))
-      max(0.75rem, env(safe-area-inset-right))
-      max(0.75rem, env(safe-area-inset-bottom))
-      max(0.75rem, env(safe-area-inset-left));
+    padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right))
+      max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
   }
 
   .globe-app__header-row {
@@ -458,11 +452,8 @@ main {
 
 @media (min-width: 48rem) and (max-width: 63.99rem) {
   .globe-app__overlay {
-    padding:
-      max(1rem, env(safe-area-inset-top))
-      max(1rem, env(safe-area-inset-right))
-      max(1rem, env(safe-area-inset-bottom))
-      max(1rem, env(safe-area-inset-left));
+    padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+      max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   }
 
   .globe-app__header-main {

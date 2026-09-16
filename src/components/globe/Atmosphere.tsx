@@ -12,7 +12,7 @@ import {
 } from "./atmosphereConfig";
 import { ATMOSPHERE_RADIUS } from "./earthConfig";
 
-/** Subtle Fresnel rim shell — quality tier adapts to viewport and reduced motion. */
+/** Subtle uniform cool-blue rim — no warm terminator or sun-side tint. */
 export function Atmosphere() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [viewportWidth, setViewportWidth] = useState(
@@ -49,6 +49,11 @@ export function Atmosphere() {
       }),
     [settings.intensity, settings.power],
   );
+
+  useEffect(() => {
+    material.uniforms.intensity!.value = settings.intensity;
+    material.uniforms.power!.value = settings.power;
+  }, [material, settings.intensity, settings.power]);
 
   useEffect(() => {
     return () => {

@@ -10,28 +10,33 @@ import {
   COUNTRY_HOVER_MATERIAL,
   COUNTRY_MATERIAL,
   COUNTRY_SELECTION_MATERIAL,
+  type CountryFillMaterialConfig,
 } from "./countryConfig";
 import { useCountriesContext } from "./CountriesContext";
 import type { CountryMaterials } from "./CountriesContext";
 import { COUNTRY_LAYER_RADIUS } from "./earthConfig";
 
+function createCountryMaterial(config: CountryFillMaterialConfig): MeshStandardMaterial {
+  const material = new MeshStandardMaterial({
+    color: config.color,
+    roughness: config.roughness,
+    metalness: config.metalness,
+    depthWrite: true,
+  });
+
+  if ("emissive" in config && config.emissive) {
+    material.emissive.set(config.emissive);
+    material.emissiveIntensity = config.emissiveIntensity ?? 0;
+  }
+
+  return material;
+}
+
 function createCountryMaterials(): CountryMaterials {
   return {
-    default: new MeshStandardMaterial({
-      color: COUNTRY_MATERIAL.color,
-      roughness: COUNTRY_MATERIAL.roughness,
-      metalness: COUNTRY_MATERIAL.metalness,
-    }),
-    hover: new MeshStandardMaterial({
-      color: COUNTRY_HOVER_MATERIAL.color,
-      roughness: COUNTRY_HOVER_MATERIAL.roughness,
-      metalness: COUNTRY_HOVER_MATERIAL.metalness,
-    }),
-    selected: new MeshStandardMaterial({
-      color: COUNTRY_SELECTION_MATERIAL.color,
-      roughness: COUNTRY_SELECTION_MATERIAL.roughness,
-      metalness: COUNTRY_SELECTION_MATERIAL.metalness,
-    }),
+    default: createCountryMaterial(COUNTRY_MATERIAL),
+    hover: createCountryMaterial(COUNTRY_HOVER_MATERIAL),
+    selected: createCountryMaterial(COUNTRY_SELECTION_MATERIAL),
   };
 }
 
@@ -49,6 +54,7 @@ function buildCountryMeshes(material: MeshStandardMaterial): Mesh[] {
     mesh.userData.countryId = feature.id;
     mesh.name = feature.id;
     mesh.renderOrder = 1;
+    mesh.frustumCulled = false;
     meshes.push(mesh);
   }
 

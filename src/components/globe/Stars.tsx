@@ -1,13 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BufferAttribute, BufferGeometry, PointsMaterial } from "three";
+import { BufferAttribute, BufferGeometry, ShaderMaterial } from "three";
 
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
-import { STARS_MATERIAL, STARS_RADIUS, buildStarPositions, getStarCount } from "./starsConfig";
+import {
+  STARS_MATERIAL,
+  STARS_RADIUS,
+  STARS_SHADER,
+  buildStarField,
+  getStarCount,
+} from "./starsConfig";
 
-/** Subtle static star dome — scene-root sibling so it never rotates with Earth. */
+/** Realistic static star dome — varied size and color, never rotates with Earth. */
 export function Stars() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [viewportWidth, setViewportWidth] = useState(
@@ -24,21 +30,25 @@ export function Stars() {
   const starCount = getStarCount(viewportWidth, prefersReducedMotion);
 
   const geometry = useMemo(() => {
-    const positions = buildStarPositions(starCount, STARS_RADIUS);
+    const field = buildStarField(starCount, STARS_RADIUS);
     const starGeometry = new BufferGeometry();
-    starGeometry.setAttribute("position", new BufferAttribute(positions, 3));
+    starGeometry.setAttribute("position", new BufferAttribute(field.positions, 3));
+    starGeometry.setAttribute("aColor", new BufferAttribute(field.colors, 3));
+    starGeometry.setAttribute("aSize", new BufferAttribute(field.sizes, 1));
     return starGeometry;
   }, [starCount]);
 
   const material = useMemo(
     () =>
-      new PointsMaterial({
-        color: STARS_MATERIAL.color,
-        size: STARS_MATERIAL.size,
+      new ShaderMaterial({
+        uniforms: {
+          opacity: { value: STARS_MATERIAL.opacity },
+          sizeAttenuation: { value: STARS_MATERIAL.sizeAttenuation },
+        },
+        vertexShader: STARS_SHADER.vertex,
+        fragmentShader: STARS_SHADER.fragment,
         transparent: true,
-        opacity: STARS_MATERIAL.opacity,
         depthWrite: false,
-        sizeAttenuation: true,
       }),
     [],
   );

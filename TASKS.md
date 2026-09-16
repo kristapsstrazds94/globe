@@ -319,7 +319,7 @@ Implement mobile/tablet/desktop layouts according to `docs/DESIGN.md`.
 
 ### T050 — Lighting and material polish
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Tune Earth material, lighting, atmosphere, stars, country colors, and borders.
 

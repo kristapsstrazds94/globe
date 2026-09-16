@@ -9,12 +9,7 @@ export const MAX_COUNTRY_SEARCH_RESULTS = 8;
 
 /** Normalize a search query for deterministic matching. */
 export function normalizeSearchQuery(query: string): string {
-  return query
-    .trim()
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/\s+/g, " ");
+  return query.trim().normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/g, " ");
 }
 
 function scoreLabelMatch(label: string, normalizedQuery: string): number | null {

@@ -121,6 +121,20 @@ function reverseRing2D(ring: Ring2D): Ring2D {
 /** Max straight chord length before bisecting (≈2° arc on the unit sphere). */
 const MAX_RING_EDGE_LENGTH = 0.035;
 
+/** Max pane edge length after fan triangulation (≈2.9° arc). */
+const MAX_PANE_EDGE_LENGTH = 0.05;
+
+/** Subdivide ring edges on the sphere — shared by country fill and border paths. */
+export function subdivideRingOnSphere(
+  ring: readonly SpherePoint[],
+  radius: number,
+  maxEdgeLength: number = MAX_RING_EDGE_LENGTH,
+): SpherePoint[] {
+  return subdivideRingEdges(ring, radius, maxEdgeLength).map((point) =>
+    normalizePoint(point, radius),
+  );
+}
+
 function subdivideRingEdges(
   ring: readonly SpherePoint[],
   radius: number,
@@ -205,22 +219,148 @@ export type SphereTriangulation = {
   vertexCount: number;
 };
 
+function edgeLength(positions: number[], a: number, b: number): number {
+  const ax = positions[a * 3]!;
+  const ay = positions[a * 3 + 1]!;
+  const az = positions[a * 3 + 2]!;
+  const bx = positions[b * 3]!;
+  const by = positions[b * 3 + 1]!;
+  const bz = positions[b * 3 + 2]!;
+
+  return Math.hypot(ax - bx, ay - by, az - bz);
+}
+
+/** Split long pane edges until every triangle edge hugs the sphere surface. */
+function subdivideSphereMesh(
+  positions: number[],
+  indices: number[],
+  radius: number,
+  maxEdgeLength: number = MAX_PANE_EDGE_LENGTH,
+): { positions: number[]; indices: number[] } {
+  let nextPositions = positions;
+  let nextIndices = indices;
+
+  let subdivided = true;
+
+  while (subdivided) {
+    subdivided = false;
+    const outputPositions = [...nextPositions];
+    const outputIndices: number[] = [];
+    let vertexCount = outputPositions.length / 3;
+
+    for (let index = 0; index < nextIndices.length; index += 3) {
+      const a = nextIndices[index]!;
+      const b = nextIndices[index + 1]!;
+      const c = nextIndices[index + 2]!;
+
+      const edges: [number, number, number][] = [
+        [a, b, edgeLength(outputPositions, a, b)],
+        [b, c, edgeLength(outputPositions, b, c)],
+        [c, a, edgeLength(outputPositions, c, a)],
+      ];
+
+      edges.sort((left, right) => right[2] - left[2]);
+      const [ea, eb, longest] = edges[0]!;
+
+      if (longest <= maxEdgeLength) {
+        outputIndices.push(a, b, c);
+        continue;
+      }
+
+      subdivided = true;
+
+      const mid = sphereMidpoint(
+        [outputPositions[ea * 3]!, outputPositions[ea * 3 + 1]!, outputPositions[ea * 3 + 2]!],
+        [outputPositions[eb * 3]!, outputPositions[eb * 3 + 1]!, outputPositions[eb * 3 + 2]!],
+        radius,
+      );
+
+      outputPositions.push(mid[0], mid[1], mid[2]);
+      const midIndex = vertexCount;
+      vertexCount += 1;
+
+      const third = [a, b, c].find((vertex) => vertex !== ea && vertex !== eb)!;
+      outputIndices.push(ea, midIndex, third, midIndex, eb, third);
+    }
+
+    nextPositions = outputPositions;
+    nextIndices = outputIndices;
+  }
+
+  return { positions: nextPositions, indices: nextIndices };
+}
+
+function sphereMidpoint(a: SpherePoint, b: SpherePoint, radius: number): SpherePoint {
+  return normalizePoint([a[0] + b[0], a[1] + b[1], a[2] + b[2]], radius);
+}
+
+const EMPTY_TRIANGULATION: SphereTriangulation = {
+  positions: [],
+  indices: [],
+  vertexCount: 0,
+};
+
 /**
- * Triangulate a sphere polygon (outer ring + optional holes) using a local
- * tangent-plane projection and Three.js Earcut.
+ * Simple spherical panes — fan from a centroid vertex to each boundary edge.
+ * Avoids long Earcut diagonals that caused dark holes on large countries.
  */
-export function triangulateSpherePolygon(
+export function triangulateSphereFan(
+  outerRing: readonly SpherePoint[],
+  radius: number,
+): SphereTriangulation {
+  const boundary = subdivideRingOnSphere(outerRing, radius);
+
+  if (boundary.length < 3) {
+    return EMPTY_TRIANGULATION;
+  }
+
+  const first = boundary[0]!;
+  let maxSpan = 0;
+
+  for (const point of boundary) {
+    maxSpan = Math.max(
+      maxSpan,
+      Math.hypot(point[0] - first[0], point[1] - first[1], point[2] - first[2]),
+    );
+  }
+
+  if (maxSpan < 1e-6) {
+    return EMPTY_TRIANGULATION;
+  }
+
+  const [nx, ny, nz] = ringCentroidNormal(boundary);
+  const center: SpherePoint = [nx * radius, ny * radius, nz * radius];
+
+  const positions: number[] = [center[0], center[1], center[2]];
+
+  for (const point of boundary) {
+    positions.push(point[0], point[1], point[2]);
+  }
+
+  const indices: number[] = [];
+  const boundaryCount = boundary.length;
+
+  for (let index = 0; index < boundaryCount; index += 1) {
+    const next = (index + 1) % boundaryCount;
+    indices.push(0, 1 + index, 1 + next);
+  }
+
+  const subdivided = subdivideSphereMesh(positions, indices, radius);
+
+  return {
+    positions: subdivided.positions,
+    indices: subdivided.indices,
+    vertexCount: subdivided.positions.length / 3,
+  };
+}
+
+/** Planar Earcut on a local tangent projection — respects concave borders. */
+function triangulateSpherePolygonEarcut(
   rings: readonly (readonly SpherePoint[])[],
   radius: number,
 ): SphereTriangulation {
-  const empty: SphereTriangulation = {
-    positions: [],
-    indices: [],
-    vertexCount: 0,
-  };
-
   if (rings.length === 0 || !rings[0] || openRingVertices(rings[0]).length < 3) {
-    return empty;
+    return EMPTY_TRIANGULATION;
   }
 
   const outerRing = openRingVertices(rings[0]!);
@@ -257,7 +397,7 @@ export function triangulateSpherePolygon(
   }
 
   if (oriented.outer.points3d.length < 3) {
-    return empty;
+    return EMPTY_TRIANGULATION;
   }
 
   const indices = Earcut.triangulate(flat2d, holeIndices, 2);
@@ -266,5 +406,32 @@ export function triangulateSpherePolygon(
     positions,
     indices,
     vertexCount,
+  };
+}
+
+/**
+ * Triangulate a sphere polygon (outer ring + optional holes).
+ * Earcut preserves concave shapes; mesh subdivision removes long diagonal artifacts.
+ */
+export function triangulateSpherePolygon(
+  rings: readonly (readonly SpherePoint[])[],
+  radius: number,
+): SphereTriangulation {
+  if (rings.length === 0 || !rings[0] || openRingVertices(rings[0]).length < 3) {
+    return EMPTY_TRIANGULATION;
+  }
+
+  const earcut = triangulateSpherePolygonEarcut(rings, radius);
+
+  if (earcut.indices.length === 0) {
+    return earcut;
+  }
+
+  const subdivided = subdivideSphereMesh(earcut.positions, earcut.indices, radius);
+
+  return {
+    positions: subdivided.positions,
+    indices: subdivided.indices,
+    vertexCount: subdivided.positions.length / 3,
   };
 }

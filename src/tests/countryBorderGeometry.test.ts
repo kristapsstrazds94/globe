@@ -7,7 +7,7 @@ import {
 import { DEFAULT_SPHERE_RADIUS, spherePointLengthSquared } from "@/lib/geo/coordinates";
 import type { ProcessedGeometry } from "@/types/geography";
 
-const BORDER_R = DEFAULT_SPHERE_RADIUS * 1.003;
+const BORDER_R = DEFAULT_SPHERE_RADIUS * 1.005;
 
 function expectOnSphere(x: number, y: number, z: number, radius: number, tolerance = 1e-5): void {
   expect(Math.abs(spherePointLengthSquared([x, y, z]) - radius * radius)).toBeLessThanOrEqual(
@@ -33,7 +33,7 @@ describe("appendCountryBorderSegments", () => {
     const positions: number[] = [];
     appendCountryBorderSegments(squarePolygon, BORDER_R, positions);
 
-    expect(positions).toHaveLength(4 * 2 * 3);
+    expect(positions.length).toBeGreaterThan(4 * 2 * 3);
 
     for (let index = 0; index < positions.length; index += 3) {
       expectOnSphere(positions[index]!, positions[index + 1]!, positions[index + 2]!, BORDER_R);
@@ -72,7 +72,7 @@ describe("appendCountryBorderSegments", () => {
     appendCountryBorderSegments(polygonWithHole, BORDER_R, withHole);
 
     expect(withHole).toEqual(outerOnly);
-    expect(withHole).toHaveLength(4 * 2 * 3);
+    expect(withHole.length).toBeGreaterThan(4 * 2 * 3);
   });
 });
 

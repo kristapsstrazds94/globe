@@ -4,7 +4,7 @@ import type { ProcessedGeometry } from "@/types/geography";
 
 import type { SpherePoint } from "./coordinates";
 import { processedGeometryToSpherePolygons } from "./geometry";
-import { openRingVertices } from "./sphereTriangulation";
+import { openRingVertices, subdivideRingOnSphere } from "./sphereTriangulation";
 
 const SEGMENT_KEY_PRECISION = 5;
 
@@ -53,7 +53,7 @@ export function appendCountryBorderSegments(
       continue;
     }
 
-    const vertices = openRingVertices(outerRing);
+    const vertices = subdivideRingOnSphere(openRingVertices(outerRing), radius);
 
     if (vertices.length < 3) {
       continue;

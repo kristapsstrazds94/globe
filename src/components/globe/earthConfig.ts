@@ -1,3 +1,4 @@
+import { GLOBE_COLORS, GLOBE_LIGHTING, GLOBE_MATERIAL } from "@/lib/design/globeTokens";
 import { lonLatToSpherePoint } from "@/lib/geo/coordinates";
 
 /** Unit-sphere radius — geographic layers use GLOBE_RADIUS plus offsets below. */
@@ -30,11 +31,11 @@ export function cameraPositionForViewCenter(
   return [(wx / length) * distance, (wy / length) * distance, (wz / length) * distance];
 }
 
-/** Country fill sits slightly above the surface to avoid z-fighting (T023). */
-export const COUNTRY_LAYER_RADIUS = GLOBE_RADIUS * 1.002;
+/** Country fill sits above the surface to avoid z-fighting at all zoom levels (T023). */
+export const COUNTRY_LAYER_RADIUS = GLOBE_RADIUS * 1.004;
 
-/** Country borders sit above fill to avoid z-fighting (T024). */
-export const COUNTRY_BORDER_RADIUS = GLOBE_RADIUS * 1.003;
+/** Country borders sit above fill — no polygon offset needed (T024). */
+export const COUNTRY_BORDER_RADIUS = GLOBE_RADIUS * 1.007;
 
 /** Atmosphere shell sits outside the surface (T013). */
 export const ATMOSPHERE_RADIUS = GLOBE_RADIUS * 1.06;
@@ -45,21 +46,11 @@ export const EARTH_GEOMETRY = {
   heightSegments: 64,
 } as const;
 
-/** Deep blue-gray Earth per docs/DESIGN.md color direction. */
+/** Deep blue-gray Earth — colors from {@link GLOBE_COLORS}. */
 export const EARTH_MATERIAL = {
-  color: "#1a2840",
-  roughness: 0.82,
-  metalness: 0.12,
+  color: GLOBE_COLORS.earth,
+  roughness: GLOBE_MATERIAL.earth.roughness,
+  metalness: GLOBE_MATERIAL.earth.metalness,
 } as const;
 
-export const GLOBE_LIGHTING = {
-  ambientIntensity: 0.22,
-  directional: {
-    position: [4, 2, 5] as [number, number, number],
-    intensity: 1.0,
-  },
-  fill: {
-    position: [-3, -1, -2] as [number, number, number],
-    intensity: 0.25,
-  },
-} as const;
+export { GLOBE_LIGHTING };

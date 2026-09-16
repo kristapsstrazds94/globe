@@ -41,9 +41,7 @@ describe("countryPicking", () => {
   it("skips non-country hits and returns null when none match", () => {
     const border = new Mesh();
 
-    expect(
-      pickCountryFromIntersections([{ object: border, distance: 1 } as never]),
-    ).toBeNull();
+    expect(pickCountryFromIntersections([{ object: border, distance: 1 } as never])).toBeNull();
   });
 
   it("converts pointer coordinates to normalized device coordinates", () => {

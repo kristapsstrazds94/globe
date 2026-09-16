@@ -64,7 +64,9 @@ describe("interpolateCameraPosition", () => {
 
   it("preserves endpoints", () => {
     const from = new Vector3(...GLOBE_CAMERA.position);
-    const to = new Vector3(...cameraPositionForViewCenter(-74, 40, GLOBE_CAMERA_CONSTRAINTS.minDistance));
+    const to = new Vector3(
+      ...cameraPositionForViewCenter(-74, 40, GLOBE_CAMERA_CONSTRAINTS.minDistance),
+    );
     const start = new Vector3();
     const end = new Vector3();
 
