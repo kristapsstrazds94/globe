@@ -24,4 +24,8 @@ export {
   triangulateSpherePolygon,
   type SphereTriangulation,
 } from "./sphereTriangulation";
-export type { GeoCentroid } from "./centroid";
+export {
+  computeGeometryCentroid,
+  sphereUnitToLonLat,
+  type GeoCentroid,
+} from "./centroid";

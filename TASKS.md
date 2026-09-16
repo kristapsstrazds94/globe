@@ -243,7 +243,7 @@ Create responsive country information UI.
 
 ### T034 — Fly-to-country camera transition
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Implement smooth orientation/camera movement to a selected country.
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useRef, type ReactNode } from "react";
+import type { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 /** Imperative globe navigation API exposed to DOM UI (T014). */
 export type GlobeControlsApi = {
@@ -13,15 +14,27 @@ export type GlobeControlsApi = {
   reset: () => void;
 };
 
+/** Country fly-to controller registered from the R3F layer (T034). */
+export type GlobeFlyToController = {
+  start: (countryId: string) => void;
+  cancel: () => void;
+};
+
 type GlobeControlsContextValue = {
   register: (api: GlobeControlsApi | null) => void;
   getApi: () => GlobeControlsApi | null;
+  registerOrbitControls: (controls: OrbitControls | null) => void;
+  getOrbitControls: () => OrbitControls | null;
+  registerFlyTo: (controller: GlobeFlyToController | null) => void;
+  getFlyToController: () => GlobeFlyToController | null;
 };
 
 const GlobeControlsContext = createContext<GlobeControlsContextValue | null>(null);
 
 export function GlobeControlsProvider({ children }: { children: ReactNode }) {
   const apiRef = useRef<GlobeControlsApi | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+  const flyToRef = useRef<GlobeFlyToController | null>(null);
 
   const register = useCallback((api: GlobeControlsApi | null) => {
     apiRef.current = api;
@@ -29,12 +42,28 @@ export function GlobeControlsProvider({ children }: { children: ReactNode }) {
 
   const getApi = useCallback(() => apiRef.current, []);
 
+  const registerOrbitControls = useCallback((controls: OrbitControls | null) => {
+    controlsRef.current = controls;
+  }, []);
+
+  const getOrbitControls = useCallback(() => controlsRef.current, []);
+
+  const registerFlyTo = useCallback((controller: GlobeFlyToController | null) => {
+    flyToRef.current = controller;
+  }, []);
+
+  const getFlyToController = useCallback(() => flyToRef.current, []);
+
   const value = useMemo(
     () => ({
       register,
       getApi,
+      registerOrbitControls,
+      getOrbitControls,
+      registerFlyTo,
+      getFlyToController,
     }),
-    [register, getApi],
+    [register, getApi, registerOrbitControls, getOrbitControls, registerFlyTo, getFlyToController],
   );
 
   return <GlobeControlsContext.Provider value={value}>{children}</GlobeControlsContext.Provider>;

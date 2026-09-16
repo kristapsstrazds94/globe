@@ -4,6 +4,7 @@ import { Atmosphere } from "./Atmosphere";
 import { CountryBorders } from "./CountryBorders";
 import { Countries } from "./Countries";
 import { CountriesProvider } from "./CountriesContext";
+import { CountryFlyTo } from "./CountryFlyTo";
 import { CountryHoverVisual } from "./CountryHoverVisual";
 import { CountryPicking } from "./CountryPicking";
 import { CountrySelectionVisual } from "./CountrySelectionVisual";
@@ -17,6 +18,7 @@ export function GlobeScene() {
   return (
     <CountriesProvider>
       <GlobeControls />
+      <CountryFlyTo />
       <CountryPicking />
       <CountryHoverVisual />
       <CountrySelectionVisual />

@@ -21,7 +21,7 @@ export function GlobeControls() {
   const { camera, gl } = useThree();
   const controlsRef = useRef<ThreeOrbitControls | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { register } = useGlobeControlsContext();
+  const { register, registerOrbitControls, getFlyToController } = useGlobeControlsContext();
 
   useEffect(() => {
     const controls = new ThreeOrbitControls(camera, gl.domElement);
@@ -35,20 +35,46 @@ export function GlobeControls() {
     controls.maxPolarAngle = GLOBE_CAMERA_CONSTRAINTS.maxPolarAngle;
     controls.saveState();
     controlsRef.current = controls;
+    registerOrbitControls(controls);
 
     gl.domElement.tabIndex = 0;
 
     const step = GLOBE_CONTROLS.keyboardRotateStep;
     const zoomScale = GLOBE_CONTROLS.keyboardZoomScale;
 
+    const cancelFlyTo = () => {
+      getFlyToController()?.cancel();
+    };
+
     const api = {
-      rotateLeft: () => orbitGlobeByStep(controls, step, 0),
-      rotateRight: () => orbitGlobeByStep(controls, -step, 0),
-      rotateUp: () => orbitGlobeByStep(controls, 0, -step),
-      rotateDown: () => orbitGlobeByStep(controls, 0, step),
-      zoomIn: () => zoomGlobeByScale(controls, 1 / zoomScale),
-      zoomOut: () => zoomGlobeByScale(controls, zoomScale),
-      reset: () => resetGlobeView(controls),
+      rotateLeft: () => {
+        cancelFlyTo();
+        orbitGlobeByStep(controls, step, 0);
+      },
+      rotateRight: () => {
+        cancelFlyTo();
+        orbitGlobeByStep(controls, -step, 0);
+      },
+      rotateUp: () => {
+        cancelFlyTo();
+        orbitGlobeByStep(controls, 0, -step);
+      },
+      rotateDown: () => {
+        cancelFlyTo();
+        orbitGlobeByStep(controls, 0, step);
+      },
+      zoomIn: () => {
+        cancelFlyTo();
+        zoomGlobeByScale(controls, 1 / zoomScale);
+      },
+      zoomOut: () => {
+        cancelFlyTo();
+        zoomGlobeByScale(controls, zoomScale);
+      },
+      reset: () => {
+        cancelFlyTo();
+        resetGlobeView(controls);
+      },
     };
 
     register(api);
@@ -96,9 +122,10 @@ export function GlobeControls() {
       gl.domElement.removeEventListener("keydown", onKeyDown);
       controls.dispose();
       controlsRef.current = null;
+      registerOrbitControls(null);
       register(null);
     };
-  }, [camera, gl, register]);
+  }, [camera, gl, getFlyToController, register, registerOrbitControls]);
 
   useEffect(() => {
     const controls = controlsRef.current;
