@@ -30,7 +30,7 @@ export function AppShell() {
               <div className="globe-app__header-row">
                 <div className="globe-app__brand">
                   <Image
-                    src="/brand/globe-logo.webp"
+                    src="/brand/globe-logo.svg"
                     alt=""
                     width={128}
                     height={128}

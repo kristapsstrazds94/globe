@@ -25,11 +25,11 @@ No secrets are required for the default GitHub Pages deploy.
 
 ## How it works
 
-| File | Purpose |
-| --- | --- |
-| `next.config.ts` | `output: "export"`, `basePath`, static image settings |
+| File                                 | Purpose                                                             |
+| ------------------------------------ | ------------------------------------------------------------------- |
+| `next.config.ts`                     | `output: "export"`, `basePath`, static image settings               |
 | `.github/workflows/deploy-pages.yml` | Builds with `NEXT_PUBLIC_BASE_PATH=/<repo-name>` and uploads `out/` |
-| `public/.nojekyll` | Disables Jekyll processing on GitHub Pages |
+| `public/.nojekyll`                   | Disables Jekyll processing on GitHub Pages                          |
 
 The deploy workflow sets `NEXT_PUBLIC_BASE_PATH` from the repository name automatically, so assets resolve correctly under `/<repo-name>/`.
 
@@ -71,9 +71,9 @@ If the site is served from the domain root (not a subpath), remove `NEXT_PUBLIC_
 
 ## Troubleshooting
 
-| Symptom | Likely cause |
-| --- | --- |
-| Blank page, 404 on JS/CSS | Wrong `basePath` — repo name must match `NEXT_PUBLIC_BASE_PATH` |
-| Deploy workflow missing | Enable **GitHub Actions** as the Pages source in repo settings |
-| Build fails in Actions | Check the **Build static site** step log; run `pnpm build` locally first |
-| Icons or logo missing | Confirm files exist under `public/` and metadata uses `basePath` |
+| Symptom                   | Likely cause                                                                    |
+| ------------------------- | ------------------------------------------------------------------------------- |
+| Blank page, 404 on JS/CSS | Wrong `basePath` — repo name must match `NEXT_PUBLIC_BASE_PATH`                 |
+| Deploy workflow missing   | Enable **GitHub Actions** as the Pages source in repo settings                  |
+| Build fails in Actions    | Check the **Build static site** step log; run `pnpm build` locally first        |
+| Icons or logo missing     | Confirm `public/brand/globe-logo.svg` is committed and metadata uses `basePath` |
