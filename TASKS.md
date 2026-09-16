@@ -345,7 +345,7 @@ Tune hover, selection, panel, search, and camera transitions.
 
 ### T052 — Loading and error states
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Design polished loading, WebGL unsupported, data failure, and recoverable error states.
 
