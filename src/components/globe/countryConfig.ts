@@ -4,3 +4,10 @@ export const COUNTRY_MATERIAL = {
   roughness: 0.78,
   metalness: 0.06,
 } as const;
+
+/** Brighter cool blue hover fill per docs/DESIGN.md. */
+export const COUNTRY_HOVER_MATERIAL = {
+  color: "#3d5a8a",
+  roughness: 0.72,
+  metalness: 0.08,
+} as const;

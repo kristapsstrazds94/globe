@@ -6,16 +6,26 @@ import { Group, Mesh, MeshStandardMaterial } from "three";
 import { geographyBundle } from "@/data/geography";
 import { buildCountryBufferGeometry } from "@/lib/geo/countryGeometry";
 
-import { COUNTRY_MATERIAL } from "./countryConfig";
+import { COUNTRY_HOVER_MATERIAL, COUNTRY_MATERIAL } from "./countryConfig";
 import { useCountriesContext } from "./CountriesContext";
 import { COUNTRY_LAYER_RADIUS } from "./earthConfig";
 
-function createCountryMaterial(): MeshStandardMaterial {
-  return new MeshStandardMaterial({
-    color: COUNTRY_MATERIAL.color,
-    roughness: COUNTRY_MATERIAL.roughness,
-    metalness: COUNTRY_MATERIAL.metalness,
-  });
+function createCountryMaterials(): {
+  default: MeshStandardMaterial;
+  hover: MeshStandardMaterial;
+} {
+  return {
+    default: new MeshStandardMaterial({
+      color: COUNTRY_MATERIAL.color,
+      roughness: COUNTRY_MATERIAL.roughness,
+      metalness: COUNTRY_MATERIAL.metalness,
+    }),
+    hover: new MeshStandardMaterial({
+      color: COUNTRY_HOVER_MATERIAL.color,
+      roughness: COUNTRY_HOVER_MATERIAL.roughness,
+      metalness: COUNTRY_HOVER_MATERIAL.metalness,
+    }),
+  };
 }
 
 function buildCountryMeshes(material: MeshStandardMaterial): Mesh[] {
@@ -41,13 +51,17 @@ function buildCountryMeshes(material: MeshStandardMaterial): Mesh[] {
 /** Country fill layer — one Three.js mesh per country for picking (T030). */
 export function Countries() {
   const groupRef = useRef<Group>(null);
-  const { register } = useCountriesContext();
-  const material = useMemo(() => createCountryMaterial(), []);
+  const { register, registerMaterials } = useCountriesContext();
+  const materials = useMemo(() => createCountryMaterials(), []);
 
   useEffect(() => {
     register(groupRef.current);
-    return () => register(null);
-  }, [register]);
+    registerMaterials(materials);
+    return () => {
+      register(null);
+      registerMaterials(null);
+    };
+  }, [materials, register, registerMaterials]);
 
   useEffect(() => {
     const group = groupRef.current;
@@ -55,7 +69,7 @@ export function Countries() {
       return;
     }
 
-    const meshes = buildCountryMeshes(material);
+    const meshes = buildCountryMeshes(materials.default);
     group.add(...meshes);
 
     return () => {
@@ -64,13 +78,14 @@ export function Countries() {
         group.remove(mesh);
       }
     };
-  }, [material]);
+  }, [materials.default]);
 
   useEffect(() => {
     return () => {
-      material.dispose();
+      materials.default.dispose();
+      materials.hover.dispose();
     };
-  }, [material]);
+  }, [materials]);
 
   return <group ref={groupRef} />;
 }

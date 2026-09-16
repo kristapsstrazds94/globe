@@ -202,7 +202,7 @@ Implement pointer picking from rendered geographic geometry.
 
 ### T031 — Hover state
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Add subtle hover feedback and an HTML tooltip.
 

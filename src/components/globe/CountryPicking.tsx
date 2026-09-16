@@ -5,23 +5,30 @@ import { useEffect, useRef } from "react";
 import { Raycaster, Vector2 } from "three";
 
 import { pickCountryFromIntersections, pointerToNdc } from "@/lib/globe/countryPicking";
+import { setHoverPointer } from "@/lib/globe/hoverPointer";
+import { isHoverCapableDevice } from "@/lib/ui/hoverCapable";
 import { useGlobeStore } from "@/stores/globeStore";
 
 import { useCountriesContext } from "./CountriesContext";
 
-/** Pointer raycasting against country fill meshes (T030). */
+/** Pointer raycasting against country fill meshes (T030) with hover pointer tracking (T031). */
 export function CountryPicking() {
   const { camera, gl } = useThree();
   const { getCountryGroup } = useCountriesContext();
   const raycasterRef = useRef(new Raycaster());
   const pointerRef = useRef(new Vector2());
   const lastHoveredRef = useRef<string | null>(null);
+  const hoverCapableRef = useRef(false);
+
+  useEffect(() => {
+    hoverCapableRef.current = isHoverCapableDevice();
+  }, []);
 
   useEffect(() => {
     const canvas = gl.domElement;
     const raycaster = raycasterRef.current;
     const pointer = pointerRef.current;
-    let pendingPointer: Pick<PointerEvent, "clientX" | "clientY"> | null = null;
+    let pendingPointer: Pick<PointerEvent, "clientX" | "clientY" | "pointerType"> | null = null;
     let pickFrame = 0;
 
     const pickAt = (event: Pick<PointerEvent, "clientX" | "clientY">): string | null => {
@@ -37,6 +44,8 @@ export function CountryPicking() {
     };
 
     const setHovered = (id: string | null) => {
+      canvas.style.cursor = id === null ? "" : "pointer";
+
       if (lastHoveredRef.current === id) {
         return;
       }
@@ -53,10 +62,17 @@ export function CountryPicking() {
 
       const nextPointer = pendingPointer;
       pendingPointer = null;
+      setHoverPointer(nextPointer.clientX, nextPointer.clientY);
+
+      if (!hoverCapableRef.current || nextPointer.pointerType === "touch") {
+        setHovered(null);
+        return;
+      }
+
       setHovered(pickAt(nextPointer));
     };
 
-    const schedulePick = (event: Pick<PointerEvent, "clientX" | "clientY">) => {
+    const schedulePick = (event: Pick<PointerEvent, "clientX" | "clientY" | "pointerType">) => {
       pendingPointer = event;
       if (pickFrame !== 0) {
         return;
@@ -66,7 +82,15 @@ export function CountryPicking() {
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      setHoverPointer(event.clientX, event.clientY);
+
+      if (!hoverCapableRef.current || event.pointerType === "touch") {
+        setHovered(null);
+        return;
+      }
+
       if (event.buttons !== 0) {
+        setHovered(null);
         return;
       }
 

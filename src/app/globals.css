@@ -144,3 +144,31 @@ main {
   outline: 2px solid #5eb8d4;
   outline-offset: 2px;
 }
+
+/* --- Country hover tooltip (T031) --- */
+
+.country-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0.375rem 0.625rem;
+  border: 1px solid #2a3a52;
+  border-radius: 0.25rem;
+  background: rgb(12 20 36 / 92%);
+  color: #e8edf5;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 140ms ease;
+  will-change: transform;
+}
+
+.country-tooltip--visible {
+  opacity: 1;
+}
