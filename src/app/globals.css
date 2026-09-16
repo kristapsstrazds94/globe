@@ -829,6 +829,8 @@ main {
 }
 
 .country-panel__meta {
+  display: grid;
+  gap: 0.875rem;
   margin: 0;
 }
 

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { CloseIcon } from "@/components/ui/CloseIcon";
 import { CountryFlag } from "@/components/ui/CountryFlag";
+import { CountryPanelMeta } from "@/components/ui/CountryPanelMeta";
 import { getCountryPanelTransitionMs } from "@/lib/design/interactionMotion";
 import { getCountryById } from "@/lib/globe/countryLookup";
 import { isCountryPanelVisible } from "@/lib/ui/countryPanelVisibility";
@@ -110,12 +111,7 @@ export function CountryPanel() {
           <CloseIcon className="country-panel__close-icon" />
         </button>
       </header>
-      <dl className="country-panel__meta">
-        <div className="country-panel__meta-row">
-          <dt className="country-panel__meta-label">Country code</dt>
-          <dd className="country-panel__meta-value">{displayCountry.id}</dd>
-        </div>
-      </dl>
+      <CountryPanelMeta country={displayCountry} />
     </aside>
   );
 }

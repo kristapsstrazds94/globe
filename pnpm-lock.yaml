@@ -30,6 +30,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3.3.1
         version: 3.3.7
+      '@sil/data':
+        specifier: ^0.1.13
+        version: 0.1.13
       '@turf/helpers':
         specifier: ^7.2.0
         version: 7.4.0
@@ -57,6 +60,9 @@ importers:
       eslint-config-next:
         specifier: ^15.5.3
         version: 15.5.25(eslint@9.39.5)(typescript@5.9.3)
+      factbook.json:
+        specifier: ^1.0.0
+        version: 1.0.0
       prettier:
         specifier: ^3.6.2
         version: 3.9.6
@@ -69,6 +75,12 @@ importers:
       vitest:
         specifier: ^3.2.4
         version: 3.2.7(@types/node@22.20.2)(tsx@4.23.13)
+      world-countries:
+        specifier: ^5.1.0
+        version: 5.1.0
+      world-location-data:
+        specifier: ^1.0.0
+        version: 1.0.0
 
 packages:
 
@@ -692,6 +704,9 @@ packages:
 
   '@rushstack/eslint-patch@1.16.1':
     resolution: {integrity: sha512-TvZbIpeKqGQQ7X0zSCvPH9riMSFQFSggnfBjFZ1mEoILW+UuXCKwOoPcgjMwiUtRqFZ8jWhPJc4um14vC6I4ag==}
+
+  '@sil/data@0.1.13':
+    resolution: {integrity: sha512-l6RtWmMFdOydNyBhgGWPpKgcdKat5NsX+Z+DkMWLoAP7kqRLfhdOY5LB62oD6ahBQO58i8S/UmKZzGyh0G606Q==}
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -1362,6 +1377,9 @@ packages:
   expect-type@1.4.0:
     resolution: {integrity: sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA==}
     engines: {node: '>=12.0.0'}
+
+  factbook.json@1.0.0:
+    resolution: {integrity: sha512-f61G/QWKM2qjQlEcO+zcdZ0Cj0DhnPdfdEmCUK50HBZroLes/ltbVJiozSIJ/Zv7GUw+yss8cBqHSsg7P+H22Q==}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -2273,6 +2291,13 @@ packages:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
 
+  world-countries@5.1.0:
+    resolution: {integrity: sha512-CXR6EBvTbArDlDDIWU3gfKb7Qk0ck2WNZ234b/A0vuecPzIfzzxH+O6Ejnvg1sT8XuiZjVlzOH0h08ZtaO7g0w==}
+
+  world-location-data@1.0.0:
+    resolution: {integrity: sha512-4bUbfeWOmVfKfw/g3kAP22LEHyOETLAuWnUFeoIehug+L7pu+zDXZxCS8mUGJpTdHF13QmlsHFzh6vyfVaJMsQ==}
+    engines: {node: '>=14.0.0'}
+
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
@@ -2723,6 +2748,8 @@ snapshots:
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.16.1': {}
+
+  '@sil/data@0.1.13': {}
 
   '@swc/helpers@0.5.15':
     dependencies:
@@ -3618,6 +3645,8 @@ snapshots:
   esutils@2.0.3: {}
 
   expect-type@1.4.0: {}
+
+  factbook.json@1.0.0: {}
 
   fast-deep-equal@3.1.3: {}
 
@@ -4681,6 +4710,10 @@ snapshots:
       stackback: 0.0.2
 
   word-wrap@1.2.5: {}
+
+  world-countries@5.1.0: {}
+
+  world-location-data@1.0.0: {}
 
   yocto-queue@0.1.0: {}
 
