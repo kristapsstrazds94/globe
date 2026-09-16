@@ -1,4 +1,9 @@
 import type { Country } from "@/types";
 
-/** Verified country metadata. Populated when the geography pipeline lands (T020+). */
-export const countries: Country[] = [];
+import { geographyBundle } from "./geography";
+
+/** Verified metadata (id + display name) derived from preprocessed Natural Earth geography. */
+export const countries: Country[] = geographyBundle.features.map((feature) => ({
+  id: feature.id,
+  name: feature.name,
+}));

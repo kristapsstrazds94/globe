@@ -229,7 +229,7 @@ Implement click/tap selection and persistent selected styling.
 
 ### T033 — Country details panel
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Create responsive country information UI.
 

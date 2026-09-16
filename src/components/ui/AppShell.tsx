@@ -1,8 +1,9 @@
 import { GlobeCanvas } from "@/components/globe";
 import { GlobeControlsProvider } from "@/components/globe/GlobeControlsContext";
 
-import { GlobeControlsUI } from "./GlobeControlsUI";
+import { CountryPanel } from "./CountryPanel";
 import { CountryTooltip } from "./CountryTooltip";
+import { GlobeControlsUI } from "./GlobeControlsUI";
 
 /**
  * Application shell — DOM UI overlay separate from the WebGL canvas.
@@ -25,6 +26,7 @@ export function AppShell() {
           <GlobeControlsUI />
         </div>
         <CountryTooltip />
+        <CountryPanel />
       </div>
     </GlobeControlsProvider>
   );
