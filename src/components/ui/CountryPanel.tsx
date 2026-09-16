@@ -111,7 +111,9 @@ export function CountryPanel() {
           <CloseIcon className="country-panel__close-icon" />
         </button>
       </header>
-      <CountryPanelMeta country={displayCountry} />
+      <div className="country-panel__body">
+        <CountryPanelMeta country={displayCountry} />
+      </div>
     </aside>
   );
 }
