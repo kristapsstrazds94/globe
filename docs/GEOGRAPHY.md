@@ -8,19 +8,85 @@ Recommended source family: Natural Earth country/admin-0 boundaries or another a
 
 The exact dataset/version must be recorded before implementation.
 
-## Source documentation
+## Selected source (T020)
 
-Record:
+**Provider:** [Natural Earth](https://www.naturalearthdata.com/)  
+**Theme:** Admin 0 – Countries  
+**Version:** 5.1.1 (May 2022)  
+**License:** [Public Domain](https://www.naturalearthdata.com/about/terms-of-use/) — no permission required; attribution optional but appreciated (`Made with Natural Earth.`).
 
-- source name
-- URL
-- version/release date
-- license
-- resolution
-- whether disputed territories are represented
-- whether dependencies require attribution
+Machine-readable config: `scripts/geography/source.config.ts`.
 
-Do not leave this as an undocumented dependency.
+### Primary dataset
+
+| Field | Value |
+| --- | --- |
+| Scale / resolution | **1:50m** (~50 km) |
+| File | `ne_50m_admin_0_countries.geojson` |
+| Download URL | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.1/geojson/ne_50m_admin_0_countries.geojson |
+| Local checkout path | `scripts/geography/raw/ne_50m_admin_0_countries.geojson` |
+| Format | GeoJSON (WGS84 lon/lat) |
+| Approx. features | 258 map units |
+| Approx. size | ~800 KB uncompressed |
+
+### Optional low-detail tier
+
+For constrained devices or future adaptive quality (see `docs/PERFORMANCE.md`):
+
+| Field | Value |
+| --- | --- |
+| Scale / resolution | **1:110m** (~110 km) |
+| File | `ne_110m_admin_0_countries.geojson` |
+| Download URL | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.1/geojson/ne_110m_admin_0_countries.geojson |
+
+The preprocessing pipeline (T021+) starts with the **50m** tier unless a task explicitly targets multi-resolution output.
+
+### Stable country identifiers
+
+| Role | Source property | Notes |
+| --- | --- | --- |
+| **Primary runtime ID** | `ADM0_A3` | Natural Earth three-letter code; always populated (no `-99` sentinel). Used as `Country.id` and geometry keys. |
+| External metadata join | `ISO_A3_EH` | ISO 3166-1 alpha-3 with France/Norway repaired; use when joining third-party ISO-coded data. |
+| Display label | `NAME` | Short cartographic name — **not** a primary key. |
+| Long name | `NAME_LONG` | Canonical long-form label where it differs from `NAME`. |
+| Region | `CONTINENT`, `SUBREGION` | UN-aligned regional grouping from source. |
+
+Do not use raw `ISO_A3` or `ISO_A2` as primary keys — they contain `-99` for France, Norway, Kosovo, Northern Cyprus, and Somaliland.
+
+### Geometry support
+
+- Input types: `Polygon`, `MultiPolygon` (GeoJSON native).
+- Coordinates: WGS84 decimal degrees (`longitude`, `latitude`).
+- Holes: supported via GeoJSON ring orientation (preprocessing must preserve interior rings).
+
+### What counts as a “country”
+
+This product uses Natural Earth **Admin 0 – Countries** (map units), not the separate “sovereign states” theme:
+
+- Metropolitan/homeland units at country granularity.
+- **Greenland** is separate from **Denmark**.
+- French overseas regions (e.g. Réunion, Guadeloupe) are **not** separate units in this theme — use the “map units” theme only if that product decision changes later.
+- Dependencies and semi-independent areas appear when Natural Earth treats them as distinct map units (see `TYPE` in source properties).
+
+### Disputed territories and boundaries
+
+- Natural Earth draws **de facto** boundaries (who controls the territory on the ground), not de jure claims.
+- Disputed areas may appear merged with the administering unit.
+- Alternative political views are available in Natural Earth’s separate [disputed areas](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-disputed/) theme — not included by default.
+- The globe does not take a editorial stance beyond the chosen source convention; document any future overlay in this file.
+
+### Known limitations
+
+- Coastlines and islands are generalized at 50m; tiny islands may be absent until a higher-resolution tier is added.
+- Antimeridian-spanning polygons (Russia, Fiji, United States, etc.) need build-time splitting or normalization before sphere tessellation.
+- Thematic fields in the source (population, GDP) are vintage estimates — **verified product metadata must come from a separate, documented source** (future task).
+- Simplification tolerance for runtime geometry is chosen in T021; do not ship raw GeoJSON to the browser.
+
+### Attribution
+
+Attribution is **not required** by the Natural Earth license. Optional credit: `Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.`
+
+Raw GeoJSON downloads are gitignored under `scripts/geography/raw/`; the T021 pipeline will fetch or expect them locally.
 
 ## Geometry model
 

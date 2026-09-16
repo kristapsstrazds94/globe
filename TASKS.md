@@ -121,7 +121,7 @@ Implement pointer and touch rotation, wheel/pinch zoom, inertia where appropriat
 
 ### T020 — Select and document geography source
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Choose a reliable country boundary dataset and document source, version, license, resolution, and known limitations.
 

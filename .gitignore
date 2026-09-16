@@ -39,3 +39,8 @@ yarn-error.log*
 
 # IDE
 .idea/
+
+# geography raw downloads (see scripts/geography/source.config.ts)
+/scripts/geography/raw/*.geojson
+/scripts/geography/raw/*.shp
+/scripts/geography/raw/*.zip
