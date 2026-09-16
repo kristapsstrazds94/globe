@@ -134,7 +134,7 @@ Choose a reliable country boundary dataset and document source, version, license
 
 ### T021 — Build geography preprocessing pipeline
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Create a build-time script that converts raw geographic data into a runtime-efficient representation.
 

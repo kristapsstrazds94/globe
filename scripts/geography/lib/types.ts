@@ -1,6 +1,15 @@
-/**
- * Runtime geography types. Heavy geometry lives in preprocessed build artifacts.
- */
+import type {
+  Feature,
+  FeatureCollection,
+  MultiPolygon,
+  Polygon,
+} from "geojson";
+
+export type RawCountryFeature = Feature<Polygon | MultiPolygon>;
+
+export type RawCountryFeatureCollection = FeatureCollection<
+  Polygon | MultiPolygon
+>;
 
 export type LonLatPosition = readonly [number, number];
 
@@ -20,23 +29,18 @@ export type ProcessedGeometry =
       coordinates: LonLatMultiPolygon;
     };
 
-/** Compact runtime record — geometry keyed by stable country id. */
+/** Compact runtime record — geometry only, metadata joins by `id`. */
 export type ProcessedCountryRecord = {
   id: string;
   name: string;
   geometry: ProcessedGeometry;
 };
 
-export type ProcessedGeographyBundle = {
+export type ProcessedGeographyOutput = {
   schemaVersion: 1;
   sourceVersion: string;
   scale: string;
   simplifyToleranceDegrees: number;
   featureCount: number;
   features: ProcessedCountryRecord[];
-};
-
-/** Lightweight geometry reference for GPU layers (T023+). */
-export type CountryGeometryRef = {
-  countryId: string;
 };

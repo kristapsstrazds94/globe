@@ -45,6 +45,7 @@ pnpm test          # Unit tests (Vitest)
 pnpm format:check  # Prettier
 pnpm build         # Production build
 pnpm start         # Serve production build (after build)
+pnpm geography:build  # Preprocess country boundaries (build-time)
 ```
 
 Use `pnpm install` (without `--frozen-lockfile`) when adding or updating dependencies.

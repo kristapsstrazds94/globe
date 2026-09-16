@@ -10,12 +10,24 @@ Dataset selection is documented in `docs/GEOGRAPHY.md` and codified in `source.c
 - Primary ID: `ADM0_A3`
 - Raw files: `raw/ne_50m_admin_0_countries.geojson` (downloaded, gitignored)
 
-## Pipeline (T021+)
-
-See `docs/GEOGRAPHY.md`:
+## Pipeline (T021)
 
 ```text
-Raw dataset → validation → simplification → coordinate normalization → runtime format
+Raw GeoJSON → validate → extract required properties → simplify → normalize IDs → runtime JSON
 ```
 
-Raw geographic data must not ship to the browser.
+Output: `public/generated/geography/countries.json` — compact lon/lat geometry only. Raw GeoJSON must not ship to the browser.
+
+## Commands
+
+```bash
+# Download raw Natural Earth GeoJSON (if missing locally)
+pnpm geography:fetch
+
+# Full preprocess — fetch when needed, simplify, write runtime bundle
+pnpm geography:build
+```
+
+From a clean checkout, `pnpm geography:build` downloads the primary dataset when `scripts/geography/raw/` is empty, then writes the generated bundle. Re-running produces deterministic output (sorted features, fixed coordinate precision, fixed simplify tolerance).
+
+Configuration: `preprocess.config.ts` (tolerance, output path).
