@@ -16,7 +16,10 @@ type GlobeErrorBoundaryState = {
 /**
  * Catches recoverable R3F/Three.js render failures without blanking the app shell.
  */
-export class GlobeErrorBoundary extends Component<GlobeErrorBoundaryProps, GlobeErrorBoundaryState> {
+export class GlobeErrorBoundary extends Component<
+  GlobeErrorBoundaryProps,
+  GlobeErrorBoundaryState
+> {
   state: GlobeErrorBoundaryState = { hasError: false };
 
   static getDerivedStateFromError(): GlobeErrorBoundaryState {

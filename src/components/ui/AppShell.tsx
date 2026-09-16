@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { GlobeCanvas } from "@/components/globe";
 import { GlobeControlsProvider } from "@/components/globe/GlobeControlsContext";
 
@@ -26,22 +28,22 @@ export function AppShell() {
             <CountryBrowseSkipLink />
             <header className="globe-app__header">
               <div className="globe-app__header-row">
-                <div className="globe-app__header-main">
-                  <h1 className="globe-app__title">World Globe</h1>
+                <div className="globe-app__brand">
+                  <Image
+                    src="/brand/globe-logo.webp"
+                    alt=""
+                    width={128}
+                    height={128}
+                    className="globe-app__logo"
+                    priority
+                  />
+                  <h1 className="globe-app__title">Pintrip</h1>
                 </div>
                 <nav className="globe-app__country-nav" aria-label="Country selection">
                   <CountrySearch />
                   <CountryBrowseTrigger />
                 </nav>
               </div>
-              <p
-                id="globe-app-instructions"
-                className="globe-app__subtitle globe-app__subtitle--collapsible"
-              >
-                Drag to rotate, scroll or pinch to zoom. Search or browse the country list to select
-                without the globe. Focus the globe and use arrow keys, or use the navigation
-                controls.
-              </p>
             </header>
             <GlobeControlsUI />
           </div>

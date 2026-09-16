@@ -128,7 +128,6 @@ export function CountrySearch() {
         aria-activedescendant={
           showResults && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined
         }
-        aria-describedby="globe-app-instructions"
         placeholder="Search countries"
         autoComplete="off"
         spellCheck={false}

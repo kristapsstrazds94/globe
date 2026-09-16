@@ -1,6 +1,6 @@
-# World Globe
+# Pintrip
 
-Interactive 3D world globe for the web. The globe is the hero — UI supports exploration without obscuring Earth.
+Playful interactive 3D globe for travelers. The globe is the hero — explore countries and plan your next trip without obscuring Earth.
 
 ## Local setup
 
@@ -34,7 +34,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). You should see the World Globe placeholder page.
+Open [http://localhost:3000](http://localhost:3000). You should see the Pintrip globe.
 
 ### Quality commands
 

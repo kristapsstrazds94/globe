@@ -18,7 +18,7 @@ import { useGlobeDpr } from "./useGlobeDpr";
 
 const CANVAS_PROPS = {
   role: "img" as const,
-  "aria-label": "Interactive world globe",
+  "aria-label": "Pintrip interactive globe",
   "data-testid": "globe-canvas",
 };
 

@@ -42,29 +42,29 @@ For deeper investigation, use browser DevTools:
 
 Record observations per profile. Update browser/device versions when re-measuring.
 
-| Profile | Viewport | DPR cap | Device / browser | Notes |
-| --- | --- | --- | --- | --- |
-| Desktop | ≥ 1280 × 800 | 2.0 | _fill in_ | Primary development target |
-| Tablet | 768–1024 portrait | 2.0 | _fill in_ | Touch drag + pinch |
-| Mobile | ≤ 390 × 844 | 1.5 | _fill in_ | Constrained GPU / thermals |
+| Profile | Viewport          | DPR cap | Device / browser | Notes                      |
+| ------- | ----------------- | ------- | ---------------- | -------------------------- |
+| Desktop | ≥ 1280 × 800      | 2.0     | _fill in_        | Primary development target |
+| Tablet  | 768–1024 portrait | 2.0     | _fill in_        | Touch drag + pinch         |
+| Mobile  | ≤ 390 × 844       | 1.5     | _fill in_        | Constrained GPU / thermals |
 
 ### Frame-time observations (manual)
 
-| Scenario | Desktop FPS (sustained) | Desktop frame time (ms) | Mobile FPS | Mobile frame time (ms) |
-| --- | --- | --- | --- | --- |
-| Idle (no interaction) | _fill in_ | _fill in_ | _fill in_ | _fill in_ |
-| Globe drag | _fill in_ | _fill in_ | _fill in_ | _fill in_ |
-| Country hover / picking | _fill in_ | _fill in_ | _fill in_ | _fill in_ |
-| Fly-to transition | _fill in_ | _fill in_ | _fill in_ | _fill in_ |
+| Scenario                | Desktop FPS (sustained) | Desktop frame time (ms) | Mobile FPS | Mobile frame time (ms) |
+| ----------------------- | ----------------------- | ----------------------- | ---------- | ---------------------- |
+| Idle (no interaction)   | _fill in_               | _fill in_               | _fill in_  | _fill in_              |
+| Globe drag              | _fill in_               | _fill in_               | _fill in_  | _fill in_              |
+| Country hover / picking | _fill in_               | _fill in_               | _fill in_  | _fill in_              |
+| Fly-to transition       | _fill in_               | _fill in_               | _fill in_  | _fill in_              |
 
 Target: ~60 FPS (~16.7 ms frame time) on capable desktop during normal interaction (`docs/PERFORMANCE.md`).
 
 ### Memory observations (manual)
 
-| Scenario | Desktop JS heap | Mobile JS heap | Notes |
-| --- | --- | --- | --- |
-| Initial load | _fill in_ | _fill in_ | After first paint + geography ready |
-| After 2 min navigation | _fill in_ | _fill in_ | Search, select, fly-to, clear selection |
+| Scenario               | Desktop JS heap | Mobile JS heap | Notes                                   |
+| ---------------------- | --------------- | -------------- | --------------------------------------- |
+| Initial load           | _fill in_       | _fill in_      | After first paint + geography ready     |
+| After 2 min navigation | _fill in_       | _fill in_      | Search, select, fly-to, clear selection |
 
 Chrome exposes heap size in the perf overlay. Safari/Firefox require DevTools memory tools.
 

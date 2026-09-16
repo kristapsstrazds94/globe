@@ -38,9 +38,10 @@ function countSphereMesh(segments: SphereMeshSegments): { vertices: number; tria
   return { vertices, triangles };
 }
 
-function countBufferGeometry(
-  geometry: ReturnType<typeof buildCountryBufferGeometry>,
-): { vertices: number; triangles: number } {
+function countBufferGeometry(geometry: ReturnType<typeof buildCountryBufferGeometry>): {
+  vertices: number;
+  triangles: number;
+} {
   if (geometry === null) {
     return { vertices: 0, triangles: 0 };
   }

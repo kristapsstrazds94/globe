@@ -17,9 +17,7 @@ const rootDir = path.resolve(scriptDir, "../..");
 const GEOGRAPHY_BUNDLE_PATH = "public/generated/geography/countries.json";
 const OUTPUT_PATH = "docs/generated/performance-baseline.json";
 
-const TRACKED_ASSETS = [
-  "public/generated/geography/countries.json",
-] as const;
+const TRACKED_ASSETS = ["public/generated/geography/countries.json"] as const;
 
 async function readAssetSize(relativePath: string): Promise<number> {
   const absolutePath = path.join(rootDir, relativePath);
@@ -51,7 +49,10 @@ async function collectBuildStats(): Promise<PerformanceBaselineSnapshot["build"]
         }
 
         const fileStat = await stat(entryPath);
-        chunkFiles.push({ path: `.next/static/${relative.replace(/\\/g, "/")}`, bytes: fileStat.size });
+        chunkFiles.push({
+          path: `.next/static/${relative.replace(/\\/g, "/")}`,
+          bytes: fileStat.size,
+        });
       }
     }
 
@@ -136,7 +137,9 @@ async function main(): Promise<void> {
       `.next/static total: ${(snapshot.build.totalStaticBytes / 1024).toFixed(1)} KB (${snapshot.build.largestChunks.length} files sampled)`,
     );
   } else {
-    console.log("Production build not found — run `pnpm build` then `pnpm perf:measure` for JS payload sizes.");
+    console.log(
+      "Production build not found — run `pnpm build` then `pnpm perf:measure` for JS payload sizes.",
+    );
   }
 }
 

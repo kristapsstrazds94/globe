@@ -34,9 +34,5 @@ export const GLOBE_CAMERA_CONSTRAINTS = {
 
 /** Dynamic far plane for orbit distance — keeps stars inside the frustum. */
 export function getGlobeCameraFar(distance: number): number {
-  return Math.max(
-    GLOBE_CAMERA_MIN_FAR,
-    GLOBE_CAMERA_CONSTRAINTS.maxDistance * 4,
-    distance * 8,
-  );
+  return Math.max(GLOBE_CAMERA_MIN_FAR, GLOBE_CAMERA_CONSTRAINTS.maxDistance * 4, distance * 8);
 }

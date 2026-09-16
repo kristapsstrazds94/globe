@@ -8,7 +8,11 @@ import {
   getStarCount,
   getStarQualityTier,
 } from "@/components/globe/starsConfig";
-import { GLOBE_CAMERA_MIN_FAR, getGlobeCameraFar, GLOBE_CAMERA_CONSTRAINTS } from "@/components/globe/cameraConfig";
+import {
+  GLOBE_CAMERA_MIN_FAR,
+  getGlobeCameraFar,
+  GLOBE_CAMERA_CONSTRAINTS,
+} from "@/components/globe/cameraConfig";
 
 describe("getStarQualityTier", () => {
   it("uses low tier on mobile widths", () => {

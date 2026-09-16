@@ -12,10 +12,7 @@ import { computeGlobeGeometryStats } from "@/lib/performance/globeGeometryStats"
 
 describe("computeGlobeGeometryStats", () => {
   it("summarizes country fill and border geometry from the runtime bundle", () => {
-    const bundlePath = path.join(
-      process.cwd(),
-      "public/generated/geography/countries.json",
-    );
+    const bundlePath = path.join(process.cwd(), "public/generated/geography/countries.json");
     const parsed: unknown = JSON.parse(readFileSync(bundlePath, "utf8"));
     const validation = validateGeographyBundle(parsed);
 

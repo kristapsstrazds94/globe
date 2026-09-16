@@ -1,8 +1,7 @@
 import type { ProcessedGeographyBundle, ProcessedGeometry } from "@/types/geography";
 
 export type GeographyValidationResult =
-  | { ok: true; bundle: ProcessedGeographyBundle }
-  | { ok: false; error: string };
+  { ok: true; bundle: ProcessedGeographyBundle } | { ok: false; error: string };
 
 function isProcessedGeometry(value: unknown): value is ProcessedGeometry {
   if (typeof value !== "object" || value === null) {
