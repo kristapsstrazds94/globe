@@ -261,7 +261,7 @@ Implement smooth orientation/camera movement to a selected country.
 
 ### T040 — Country search
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Add fast country search with keyboard navigation.
 

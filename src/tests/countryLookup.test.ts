@@ -5,9 +5,10 @@ import { getCountryById, getCountryNameById } from "@/lib/globe/countryLookup";
 describe("countryLookup", () => {
   it("returns verified country metadata for a known id", () => {
     expect(getCountryById("NOR")).toEqual({ id: "NOR", name: "Norway" });
-    expect(getCountryById("USA")).toEqual({
+    expect(getCountryById("USA")).toMatchObject({
       id: "USA",
       name: "United States of America",
+      aliases: expect.arrayContaining(["United States", "America"]),
     });
   });
 

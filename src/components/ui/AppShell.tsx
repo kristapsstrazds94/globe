@@ -2,6 +2,7 @@ import { GlobeCanvas } from "@/components/globe";
 import { GlobeControlsProvider } from "@/components/globe/GlobeControlsContext";
 
 import { CountryPanel } from "./CountryPanel";
+import { CountrySearch } from "./CountrySearch";
 import { CountryTooltip } from "./CountryTooltip";
 import { GlobeControlsUI } from "./GlobeControlsUI";
 
@@ -17,7 +18,12 @@ export function AppShell() {
         <GlobeCanvas />
         <div className="globe-app__overlay">
           <header className="globe-app__header">
-            <h1 className="globe-app__title">World Globe</h1>
+            <div className="globe-app__header-row">
+              <div className="globe-app__header-main">
+                <h1 className="globe-app__title">World Globe</h1>
+              </div>
+              <CountrySearch />
+            </div>
             <p className="globe-app__subtitle">
               Drag to rotate, scroll or pinch to zoom. Focus the globe and use arrow keys, or use
               the navigation controls.

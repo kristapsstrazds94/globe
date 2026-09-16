@@ -1,4 +1,5 @@
 import type { Country } from "@/types";
+import { countrySearchAliases } from "@/lib/search/countrySearchAliases";
 
 import { geographyBundle } from "./geography";
 
@@ -6,4 +7,5 @@ import { geographyBundle } from "./geography";
 export const countries: Country[] = geographyBundle.features.map((feature) => ({
   id: feature.id,
   name: feature.name,
+  aliases: countrySearchAliases[feature.id],
 }));

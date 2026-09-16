@@ -4,7 +4,7 @@
 export type Country = {
   id: string;
   name: string;
-  aliases?: string[];
+  aliases?: readonly string[];
   region?: string;
   capital?: string;
 };
