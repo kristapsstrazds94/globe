@@ -41,12 +41,25 @@ Open [http://localhost:3000](http://localhost:3000). You should see the World Gl
 ```bash
 pnpm lint          # ESLint
 pnpm typecheck     # TypeScript (strict)
+pnpm test          # Unit tests (Vitest)
 pnpm format:check  # Prettier
 pnpm build         # Production build
 pnpm start         # Serve production build (after build)
 ```
 
 Use `pnpm install` (without `--frozen-lockfile`) when adding or updating dependencies.
+
+### Continuous integration
+
+GitHub Actions runs the same baseline checks on every push and pull request to `main`:
+
+1. `pnpm install --frozen-lockfile`
+2. `pnpm lint`
+3. `pnpm typecheck`
+4. `pnpm test`
+5. `pnpm build`
+
+The workflow lives at `.github/workflows/ci.yml` and does not require secrets for these checks.
 
 ## Project structure
 

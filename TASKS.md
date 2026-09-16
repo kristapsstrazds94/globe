@@ -34,7 +34,7 @@ Create clear boundaries for globe rendering, geographic data, application state,
 
 ### T003 — Establish CI quality gates
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Add automated checks for install, lint, typecheck, unit tests, and production build.
 
