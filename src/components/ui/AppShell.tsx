@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { GlobeCanvas } from "@/components/globe";
+import { withBasePath } from "@/lib/basePath";
 import { GlobeControlsProvider } from "@/components/globe/GlobeControlsContext";
 
 import {
@@ -30,7 +31,7 @@ export function AppShell() {
               <div className="globe-app__header-row">
                 <div className="globe-app__brand">
                   <Image
-                    src="/brand/globe-logo.svg"
+                    src={withBasePath("/brand/globe-logo.svg")}
                     alt=""
                     width={128}
                     height={128}

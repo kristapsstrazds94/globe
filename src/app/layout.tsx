@@ -2,9 +2,9 @@ import { Outfit } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
-import "./globals.css";
+import { withBasePath } from "@/lib/basePath";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+import "./globals.css";
 
 const titleFont = Outfit({
   subsets: ["latin"],
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   title: "Pintrip",
   description: "Explore countries on an interactive 3D globe — plan your next trip.",
   icons: {
-    icon: `${basePath}/brand/globe-logo.svg`,
-    apple: `${basePath}/brand/globe-logo.svg`,
+    icon: withBasePath("/brand/globe-logo.svg"),
+    apple: withBasePath("/brand/globe-logo.svg"),
   },
 };
 

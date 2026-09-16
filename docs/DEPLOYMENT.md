@@ -71,9 +71,9 @@ If the site is served from the domain root (not a subpath), remove `NEXT_PUBLIC_
 
 ## Troubleshooting
 
-| Symptom                   | Likely cause                                                                    |
-| ------------------------- | ------------------------------------------------------------------------------- |
-| Blank page, 404 on JS/CSS | Wrong `basePath` — repo name must match `NEXT_PUBLIC_BASE_PATH`                 |
-| Deploy workflow missing   | Enable **GitHub Actions** as the Pages source in repo settings                  |
-| Build fails in Actions    | Check the **Build static site** step log; run `pnpm build` locally first        |
-| Icons or logo missing     | Confirm `public/brand/globe-logo.svg` is committed and metadata uses `basePath` |
+| Symptom                   | Likely cause                                                                                                                                              |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blank page, 404 on JS/CSS | Wrong `basePath` — repo name must match `NEXT_PUBLIC_BASE_PATH`                                                                                           |
+| Deploy workflow missing   | Enable **GitHub Actions** as the Pages source in repo settings                                                                                            |
+| Build fails in Actions    | Check the **Build static site** step log; run `pnpm build` locally first                                                                                  |
+| Icons or logo missing     | Confirm `public/brand/globe-logo.svg` is committed; public assets must use `withBasePath()` because static export does not rewrite `next/image` src paths |
