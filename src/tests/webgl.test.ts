@@ -9,9 +9,7 @@ describe("isWebGLAvailable", () => {
       getContext: vi.fn().mockReturnValue(null),
     };
 
-    expect(
-      isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement),
-    ).toBe(false);
+    expect(isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement)).toBe(false);
   });
 
   it("returns true when webgl2 context is available", () => {
@@ -19,9 +17,7 @@ describe("isWebGLAvailable", () => {
       getContext: vi.fn((type: string) => (type === "webgl2" ? {} : null)),
     };
 
-    expect(
-      isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement),
-    ).toBe(true);
+    expect(isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement)).toBe(true);
   });
 
   it("returns true when only webgl context is available", () => {
@@ -29,9 +25,7 @@ describe("isWebGLAvailable", () => {
       getContext: vi.fn((type: string) => (type === "webgl" ? {} : null)),
     };
 
-    expect(
-      isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement),
-    ).toBe(true);
+    expect(isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement)).toBe(true);
   });
 
   it("returns false when getContext throws", () => {
@@ -41,9 +35,7 @@ describe("isWebGLAvailable", () => {
       }),
     };
 
-    expect(
-      isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement),
-    ).toBe(false);
+    expect(isWebGLAvailable(() => mockCanvas as unknown as HTMLCanvasElement)).toBe(false);
   });
 });
 

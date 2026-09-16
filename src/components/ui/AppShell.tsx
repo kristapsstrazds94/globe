@@ -17,8 +17,8 @@ export function AppShell() {
           <header className="globe-app__header">
             <h1 className="globe-app__title">World Globe</h1>
             <p className="globe-app__subtitle">
-              Drag to rotate, scroll or pinch to zoom. Focus the globe and use
-              arrow keys, or use the navigation controls.
+              Drag to rotate, scroll or pinch to zoom. Focus the globe and use arrow keys, or use
+              the navigation controls.
             </p>
           </header>
           <GlobeControlsUI />

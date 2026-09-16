@@ -19,37 +19,37 @@ Machine-readable config: `scripts/geography/source.config.ts`.
 
 ### Primary dataset
 
-| Field | Value |
-| --- | --- |
-| Scale / resolution | **1:50m** (~50 km) |
-| File | `ne_50m_admin_0_countries.geojson` |
-| Download URL | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.1/geojson/ne_50m_admin_0_countries.geojson |
-| Local checkout path | `scripts/geography/raw/ne_50m_admin_0_countries.geojson` |
-| Format | GeoJSON (WGS84 lon/lat) |
-| Approx. features | 258 map units |
-| Approx. size | ~800 KB uncompressed |
+| Field               | Value                                                                                                          |
+| ------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Scale / resolution  | **1:50m** (~50 km)                                                                                             |
+| File                | `ne_50m_admin_0_countries.geojson`                                                                             |
+| Download URL        | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.1/geojson/ne_50m_admin_0_countries.geojson |
+| Local checkout path | `scripts/geography/raw/ne_50m_admin_0_countries.geojson`                                                       |
+| Format              | GeoJSON (WGS84 lon/lat)                                                                                        |
+| Approx. features    | 258 map units                                                                                                  |
+| Approx. size        | ~800 KB uncompressed                                                                                           |
 
 ### Optional low-detail tier
 
 For constrained devices or future adaptive quality (see `docs/PERFORMANCE.md`):
 
-| Field | Value |
-| --- | --- |
-| Scale / resolution | **1:110m** (~110 km) |
-| File | `ne_110m_admin_0_countries.geojson` |
-| Download URL | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.1/geojson/ne_110m_admin_0_countries.geojson |
+| Field              | Value                                                                                                           |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| Scale / resolution | **1:110m** (~110 km)                                                                                            |
+| File               | `ne_110m_admin_0_countries.geojson`                                                                             |
+| Download URL       | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.1/geojson/ne_110m_admin_0_countries.geojson |
 
 The preprocessing pipeline (T021+) starts with the **50m** tier unless a task explicitly targets multi-resolution output.
 
 ### Stable country identifiers
 
-| Role | Source property | Notes |
-| --- | --- | --- |
-| **Primary runtime ID** | `ADM0_A3` | Natural Earth three-letter code; always populated (no `-99` sentinel). Used as `Country.id` and geometry keys. |
-| External metadata join | `ISO_A3_EH` | ISO 3166-1 alpha-3 with France/Norway repaired; use when joining third-party ISO-coded data. |
-| Display label | `NAME` | Short cartographic name — **not** a primary key. |
-| Long name | `NAME_LONG` | Canonical long-form label where it differs from `NAME`. |
-| Region | `CONTINENT`, `SUBREGION` | UN-aligned regional grouping from source. |
+| Role                   | Source property          | Notes                                                                                                          |
+| ---------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| **Primary runtime ID** | `ADM0_A3`                | Natural Earth three-letter code; always populated (no `-99` sentinel). Used as `Country.id` and geometry keys. |
+| External metadata join | `ISO_A3_EH`              | ISO 3166-1 alpha-3 with France/Norway repaired; use when joining third-party ISO-coded data.                   |
+| Display label          | `NAME`                   | Short cartographic name — **not** a primary key.                                                               |
+| Long name              | `NAME_LONG`              | Canonical long-form label where it differs from `NAME`.                                                        |
+| Region                 | `CONTINENT`, `SUBREGION` | UN-aligned regional grouping from source.                                                                      |
 
 Do not use raw `ISO_A3` or `ISO_A2` as primary keys — they contain `-99` for France, Norway, Kosovo, Northern Cyprus, and Somaliland.
 

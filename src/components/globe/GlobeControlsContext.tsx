@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  type ReactNode,
-} from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, type ReactNode } from "react";
 
 /** Imperative globe navigation API exposed to DOM UI (T014). */
 export type GlobeControlsApi = {
@@ -25,9 +18,7 @@ type GlobeControlsContextValue = {
   getApi: () => GlobeControlsApi | null;
 };
 
-const GlobeControlsContext = createContext<GlobeControlsContextValue | null>(
-  null,
-);
+const GlobeControlsContext = createContext<GlobeControlsContextValue | null>(null);
 
 export function GlobeControlsProvider({ children }: { children: ReactNode }) {
   const apiRef = useRef<GlobeControlsApi | null>(null);
@@ -46,19 +37,13 @@ export function GlobeControlsProvider({ children }: { children: ReactNode }) {
     [register, getApi],
   );
 
-  return (
-    <GlobeControlsContext.Provider value={value}>
-      {children}
-    </GlobeControlsContext.Provider>
-  );
+  return <GlobeControlsContext.Provider value={value}>{children}</GlobeControlsContext.Provider>;
 }
 
 export function useGlobeControlsContext(): GlobeControlsContextValue {
   const context = useContext(GlobeControlsContext);
   if (!context) {
-    throw new Error(
-      "useGlobeControlsContext must be used within GlobeControlsProvider",
-    );
+    throw new Error("useGlobeControlsContext must be used within GlobeControlsProvider");
   }
   return context;
 }

@@ -72,9 +72,7 @@ export const ATMOSPHERE_SHADER = {
   `,
 } as const;
 
-export function getAtmosphereQualityTier(
-  viewportWidth: number,
-): AtmosphereQualityTier {
+export function getAtmosphereQualityTier(viewportWidth: number): AtmosphereQualityTier {
   if (viewportWidth < MOBILE_BREAKPOINT_PX) return "low";
   if (viewportWidth < TABLET_BREAKPOINT_PX) return "medium";
   return "high";
@@ -84,8 +82,6 @@ export function getAtmosphereSettings(
   viewportWidth: number,
   prefersReducedMotion: boolean,
 ): AtmosphereSettings {
-  const tier = prefersReducedMotion
-    ? "reduced"
-    : getAtmosphereQualityTier(viewportWidth);
+  const tier = prefersReducedMotion ? "reduced" : getAtmosphereQualityTier(viewportWidth);
   return ATMOSPHERE_TIER_SETTINGS[tier];
 }

@@ -1,20 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import {
-  BufferAttribute,
-  BufferGeometry,
-  PointsMaterial,
-} from "three";
+import { BufferAttribute, BufferGeometry, PointsMaterial } from "three";
 
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
-import {
-  STARS_MATERIAL,
-  STARS_RADIUS,
-  buildStarPositions,
-  getStarCount,
-} from "./starsConfig";
+import { STARS_MATERIAL, STARS_RADIUS, buildStarPositions, getStarCount } from "./starsConfig";
 
 /** Subtle static star dome — scene-root sibling so it never rotates with Earth. */
 export function Stars() {
@@ -59,12 +50,5 @@ export function Stars() {
     };
   }, [geometry, material]);
 
-  return (
-    <points
-      geometry={geometry}
-      material={material}
-      frustumCulled={false}
-      renderOrder={-1}
-    />
-  );
+  return <points geometry={geometry} material={material} frustumCulled={false} renderOrder={-1} />;
 }

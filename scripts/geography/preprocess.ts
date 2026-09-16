@@ -16,9 +16,7 @@ async function main(): Promise<void> {
   const fetchOnly = process.argv.includes("--fetch-only");
   const dataset = GEOGRAPHY_SOURCE.datasets[PREPROCESS_CONFIG.tier];
 
-  console.log(
-    `Geography preprocess — ${GEOGRAPHY_SOURCE.provider} ${dataset.scale}`,
-  );
+  console.log(`Geography preprocess — ${GEOGRAPHY_SOURCE.provider} ${dataset.scale}`);
 
   const rawPath = await ensureRawDataset(dataset, rootDir);
   console.log(`Raw dataset: ${path.relative(rootDir, rawPath)}`);
@@ -39,9 +37,7 @@ async function main(): Promise<void> {
     rootDir,
   );
 
-  console.log(
-    `Wrote ${bundle.featureCount} countries → ${path.relative(rootDir, outputPath)}`,
-  );
+  console.log(`Wrote ${bundle.featureCount} countries → ${path.relative(rootDir, outputPath)}`);
 }
 
 main().catch((error: unknown) => {

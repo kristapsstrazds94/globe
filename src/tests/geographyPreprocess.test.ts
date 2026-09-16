@@ -6,10 +6,7 @@ import { describe, expect, it } from "vitest";
 import { extractCountryRecord } from "../../scripts/geography/lib/extract";
 import { normalizeCountryId, normalizeCountryName } from "../../scripts/geography/lib/normalize";
 import { processFeatureCollection } from "../../scripts/geography/lib/process";
-import {
-  roundPolygonCoordinates,
-  roundPosition,
-} from "../../scripts/geography/lib/round";
+import { roundPolygonCoordinates, roundPosition } from "../../scripts/geography/lib/round";
 import { simplifyGeometry } from "../../scripts/geography/lib/simplify";
 import {
   assertFeatureCollection,
@@ -18,10 +15,7 @@ import {
 import { writeGeographyBundle } from "../../scripts/geography/lib/write";
 import { PREPROCESS_CONFIG } from "../../scripts/geography/preprocess.config";
 
-const fixturePath = path.resolve(
-  __dirname,
-  "../../scripts/geography/fixtures/minimal.geojson",
-);
+const fixturePath = path.resolve(__dirname, "../../scripts/geography/fixtures/minimal.geojson");
 
 function loadFixture() {
   const parsed: unknown = JSON.parse(readFileSync(fixturePath, "utf8"));
@@ -80,10 +74,7 @@ describe("geography preprocessing helpers", () => {
 
   it("rounds coordinates to a fixed decimal precision", () => {
     expect(roundPosition([0, 0.0000004], 6)).toEqual([0, 0]);
-    expect(roundPosition([1.23456789, -9.87654321], 6)).toEqual([
-      1.234568,
-      -9.876543,
-    ]);
+    expect(roundPosition([1.23456789, -9.87654321], 6)).toEqual([1.234568, -9.876543]);
   });
 
   it("simplifies geometry with a fixed tolerance", () => {
@@ -120,20 +111,13 @@ describe("geography preprocessing helpers", () => {
     const bundle = processFeatureCollection(loadFixture());
 
     try {
-      const outputPath = await writeGeographyBundle(
-        bundle,
-        "countries.json",
-        tempRoot,
-      );
+      const outputPath = await writeGeographyBundle(bundle, "countries.json", tempRoot);
 
       const written = JSON.parse(readFileSync(outputPath, "utf8")) as {
         features: { id: string }[];
       };
 
-      expect(written.features.map((feature) => feature.id)).toEqual([
-        "AAA",
-        "BBB",
-      ]);
+      expect(written.features.map((feature) => feature.id)).toEqual(["AAA", "BBB"]);
     } finally {
       rmSync(tempRoot, { recursive: true, force: true });
     }

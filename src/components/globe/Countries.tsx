@@ -21,10 +21,7 @@ function buildCountryMeshes(material: MeshStandardMaterial): Mesh[] {
   const meshes: Mesh[] = [];
 
   for (const feature of geographyBundle.features) {
-    const geometry = buildCountryBufferGeometry(
-      feature.geometry,
-      COUNTRY_LAYER_RADIUS,
-    );
+    const geometry = buildCountryBufferGeometry(feature.geometry, COUNTRY_LAYER_RADIUS);
 
     if (geometry === null) {
       continue;

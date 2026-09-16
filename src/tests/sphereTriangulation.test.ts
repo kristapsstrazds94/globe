@@ -8,21 +8,12 @@ import {
   spherePointLengthSquared,
 } from "@/lib/geo/coordinates";
 import { processedGeometryToSpherePolygons } from "@/lib/geo/geometry";
-import {
-  openRingVertices,
-  triangulateSpherePolygon,
-} from "@/lib/geo/sphereTriangulation";
+import { openRingVertices, triangulateSpherePolygon } from "@/lib/geo/sphereTriangulation";
 
 const R = DEFAULT_SPHERE_RADIUS;
 const COUNTRY_R = R * 1.002;
 
-function expectOnSphere(
-  x: number,
-  y: number,
-  z: number,
-  radius: number,
-  tolerance = 1e-5,
-): void {
+function expectOnSphere(x: number, y: number, z: number, radius: number, tolerance = 1e-5): void {
   expect(Math.abs(spherePointLengthSquared([x, y, z]) - radius * radius)).toBeLessThanOrEqual(
     tolerance,
   );
@@ -42,6 +33,28 @@ describe("openRingVertices", () => {
 });
 
 describe("triangulateSpherePolygon", () => {
+  it("subdivides long ring edges before triangulation", () => {
+    const rings = processedGeometryToSpherePolygons(
+      {
+        type: "Polygon",
+        coordinates: [
+          [
+            [0, 0],
+            [8, 0],
+            [8, 8],
+            [0, 8],
+            [0, 0],
+          ],
+        ],
+      },
+      COUNTRY_R,
+    );
+
+    const result = triangulateSpherePolygon(rings[0]!, COUNTRY_R);
+
+    expect(result.vertexCount).toBeGreaterThan(4);
+  });
+
   it("triangulates a simple quadrilateral on the sphere", () => {
     const rings = processedGeometryToSpherePolygons(
       {
@@ -75,10 +88,7 @@ describe("triangulateSpherePolygon", () => {
   });
 
   it("returns empty triangulation for degenerate rings", () => {
-    const result = triangulateSpherePolygon(
-      [[lonLatPositionToSpherePoint([0, 0], R)]],
-      COUNTRY_R,
-    );
+    const result = triangulateSpherePolygon([[lonLatPositionToSpherePoint([0, 0], R)]], COUNTRY_R);
 
     expect(result.indices).toHaveLength(0);
   });
@@ -144,7 +154,14 @@ describe("buildCountryBufferGeometry", () => {
       buildCountryBufferGeometry(
         {
           type: "Polygon",
-          coordinates: [[[0, 0], [0, 0], [0, 0], [0, 0]]],
+          coordinates: [
+            [
+              [0, 0],
+              [0, 0],
+              [0, 0],
+              [0, 0],
+            ],
+          ],
         },
         COUNTRY_R,
       ),

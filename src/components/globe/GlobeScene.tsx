@@ -1,9 +1,10 @@
 "use client";
 
 import { Atmosphere } from "./Atmosphere";
+import { CountryBorders } from "./CountryBorders";
 import { Countries } from "./Countries";
 import { Earth } from "./Earth";
-import { GLOBE_LIGHTING } from "./earthConfig";
+import { GLOBE_GEO_SCALE, GLOBE_LIGHTING } from "./earthConfig";
 import { GlobeControls } from "./GlobeControls";
 import { Stars } from "./Stars";
 
@@ -22,9 +23,10 @@ export function GlobeScene() {
         position={GLOBE_LIGHTING.fill.position}
         intensity={GLOBE_LIGHTING.fill.intensity}
       />
-      <group>
+      <group scale={GLOBE_GEO_SCALE}>
         <Earth />
         <Countries />
+        <CountryBorders />
         <Atmosphere />
       </group>
     </>

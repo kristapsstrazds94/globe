@@ -36,9 +36,7 @@ export function lonLatMultiPolygonToSpherePolygons(
   multiPolygon: LonLatMultiPolygon,
   radius: number = DEFAULT_SPHERE_RADIUS,
 ): SpherePoint[][][] {
-  return multiPolygon.map((polygon) =>
-    lonLatPolygonToSphereRings(polygon, radius),
-  );
+  return multiPolygon.map((polygon) => lonLatPolygonToSphereRings(polygon, radius));
 }
 
 /**

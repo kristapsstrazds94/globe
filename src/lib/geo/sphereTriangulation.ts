@@ -8,9 +8,7 @@ type Ring2D = {
 };
 
 /** Drop GeoJSON closing duplicate when the ring repeats its first vertex. */
-export function openRingVertices(
-  ring: readonly SpherePoint[],
-): readonly SpherePoint[] {
+export function openRingVertices(ring: readonly SpherePoint[]): readonly SpherePoint[] {
   if (ring.length < 4) {
     return ring;
   }
@@ -18,11 +16,7 @@ export function openRingVertices(
   const first = ring[0]!;
   const last = ring[ring.length - 1]!;
 
-  if (
-    first[0] === last[0] &&
-    first[1] === last[1] &&
-    first[2] === last[2]
-  ) {
+  if (first[0] === last[0] && first[1] === last[1] && first[2] === last[2]) {
     return ring.slice(0, -1);
   }
 
@@ -66,8 +60,7 @@ function createTangentBasis(normal: SpherePoint): {
   v: SpherePoint;
 } {
   const [nx, ny, nz] = normal;
-  const reference: SpherePoint =
-    Math.abs(ny) < 0.9 ? [0, 1, 0] : [1, 0, 0];
+  const reference: SpherePoint = Math.abs(ny) < 0.9 ? [0, 1, 0] : [1, 0, 0];
 
   let ux = reference[1] * nz - reference[2] * ny;
   let uy = reference[2] * nx - reference[0] * nz;
@@ -94,10 +87,7 @@ function projectPointTo2D(
   v: SpherePoint,
 ): readonly [number, number] {
   const [x, y, z] = point;
-  return [
-    x * u[0] + y * u[1] + z * u[2],
-    x * v[0] + y * v[1] + z * v[2],
-  ];
+  return [x * u[0] + y * u[1] + z * u[2], x * v[0] + y * v[1] + z * v[2]];
 }
 
 function signedArea2D(flat: readonly number[]): number {
@@ -128,15 +118,61 @@ function reverseRing2D(ring: Ring2D): Ring2D {
   };
 }
 
+/** Max straight chord length before bisecting (≈2° arc on the unit sphere). */
+const MAX_RING_EDGE_LENGTH = 0.035;
+
+function subdivideRingEdges(
+  ring: readonly SpherePoint[],
+  radius: number,
+  maxEdgeLength: number = MAX_RING_EDGE_LENGTH,
+): SpherePoint[] {
+  let points = [...openRingVertices(ring)];
+
+  if (points.length < 3) {
+    return points;
+  }
+
+  let subdivided = true;
+
+  while (subdivided) {
+    subdivided = false;
+    const next: SpherePoint[] = [];
+
+    for (let index = 0; index < points.length; index += 1) {
+      const current = points[index]!;
+      const following = points[(index + 1) % points.length]!;
+      next.push(current);
+
+      const edgeLength = Math.hypot(
+        current[0] - following[0],
+        current[1] - following[1],
+        current[2] - following[2],
+      );
+
+      if (edgeLength > maxEdgeLength) {
+        next.push(
+          normalizePoint(
+            [current[0] + following[0], current[1] + following[1], current[2] + following[2]],
+            radius,
+          ),
+        );
+        subdivided = true;
+      }
+    }
+
+    points = next;
+  }
+
+  return points;
+}
+
 function ringTo2D(
   ring: readonly SpherePoint[],
   radius: number,
   u: SpherePoint,
   v: SpherePoint,
 ): Ring2D {
-  const points3d = openRingVertices(ring).map((point) =>
-    normalizePoint(point, radius),
-  );
+  const points3d = subdivideRingEdges(ring, radius).map((point) => normalizePoint(point, radius));
   const flat: number[] = [];
 
   for (const point of points3d) {
@@ -147,10 +183,7 @@ function ringTo2D(
   return { flat, points3d };
 }
 
-function orientRingsForEarcut(
-  outer: Ring2D,
-  holes: Ring2D[],
-): { outer: Ring2D; holes: Ring2D[] } {
+function orientRingsForEarcut(outer: Ring2D, holes: Ring2D[]): { outer: Ring2D; holes: Ring2D[] } {
   let orientedOuter = outer;
   if (signedArea2D(outer.flat) < 0) {
     orientedOuter = reverseRing2D(outer);

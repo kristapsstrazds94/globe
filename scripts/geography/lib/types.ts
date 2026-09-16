@@ -1,15 +1,8 @@
-import type {
-  Feature,
-  FeatureCollection,
-  MultiPolygon,
-  Polygon,
-} from "geojson";
+import type { Feature, FeatureCollection, MultiPolygon, Polygon } from "geojson";
 
 export type RawCountryFeature = Feature<Polygon | MultiPolygon>;
 
-export type RawCountryFeatureCollection = FeatureCollection<
-  Polygon | MultiPolygon
->;
+export type RawCountryFeatureCollection = FeatureCollection<Polygon | MultiPolygon>;
 
 export type LonLatPosition = readonly [number, number];
 

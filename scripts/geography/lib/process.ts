@@ -1,10 +1,7 @@
 import { GEOGRAPHY_SOURCE } from "../source.config";
 import { PREPROCESS_CONFIG } from "../preprocess.config";
 import { extractCountryRecord } from "./extract";
-import type {
-  ProcessedGeographyOutput,
-  RawCountryFeatureCollection,
-} from "./types";
+import type { ProcessedGeographyOutput, RawCountryFeatureCollection } from "./types";
 import { validateCountryFeature } from "./validate";
 
 export function processFeatureCollection(

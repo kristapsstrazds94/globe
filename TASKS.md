@@ -173,7 +173,7 @@ Render all countries/required geographic entities above the Earth surface.
 
 ### T024 — Render country borders
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Add subtle borders without excessive geometry or line thickness.
 

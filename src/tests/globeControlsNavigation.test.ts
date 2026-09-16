@@ -52,9 +52,7 @@ describe("globeControlsNavigation", () => {
       zoomGlobeByScale(controls, 2);
     }
 
-    expect(getCameraDistance(controls)).toBeLessThanOrEqual(
-      GLOBE_CAMERA_CONSTRAINTS.maxDistance,
-    );
+    expect(getCameraDistance(controls)).toBeLessThanOrEqual(GLOBE_CAMERA_CONSTRAINTS.maxDistance);
   });
 
   it("resets to the default camera composition", () => {

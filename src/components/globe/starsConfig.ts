@@ -24,10 +24,7 @@ export function getStarQualityTier(viewportWidth: number): StarQualityTier {
   return "high";
 }
 
-export function getStarCount(
-  viewportWidth: number,
-  prefersReducedMotion: boolean,
-): number {
+export function getStarCount(viewportWidth: number, prefersReducedMotion: boolean): number {
   if (prefersReducedMotion) return STAR_TIER_COUNTS.reduced;
   return STAR_TIER_COUNTS[getStarQualityTier(viewportWidth)];
 }

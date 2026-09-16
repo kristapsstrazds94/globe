@@ -8,17 +8,10 @@ import { usePrefersReducedMotion } from "@/lib/hooks";
 
 import { GLOBE_CAMERA_CONSTRAINTS } from "./cameraConfig";
 import { GLOBE_CONTROLS } from "./controlsConfig";
-import {
-  orbitGlobeByStep,
-  resetGlobeView,
-  zoomGlobeByScale,
-} from "./globeControlsNavigation";
+import { orbitGlobeByStep, resetGlobeView, zoomGlobeByScale } from "./globeControlsNavigation";
 import { useGlobeControlsContext } from "./GlobeControlsContext";
 
-function applyDamping(
-  controls: ThreeOrbitControls,
-  prefersReducedMotion: boolean,
-): void {
+function applyDamping(controls: ThreeOrbitControls, prefersReducedMotion: boolean): void {
   controls.enableDamping = !prefersReducedMotion;
   controls.dampingFactor = prefersReducedMotion ? 0 : GLOBE_CONTROLS.dampingFactor;
 }

@@ -34,9 +34,7 @@ describe("getAtmosphereSettings", () => {
     const reduced = getAtmosphereSettings(1280, true);
 
     expect(reduced.intensity).toBeLessThan(normal.intensity);
-    expect(reduced.intensity).toBe(
-      ATMOSPHERE_TIER_SETTINGS.reduced.intensity,
-    );
+    expect(reduced.intensity).toBe(ATMOSPHERE_TIER_SETTINGS.reduced.intensity);
   });
 
   it("keeps atmosphere enabled across tiers", () => {

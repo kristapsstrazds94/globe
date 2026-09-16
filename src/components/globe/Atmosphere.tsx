@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import {
-  Color,
-  NormalBlending,
-  ShaderMaterial,
-  SphereGeometry,
-} from "three";
+import { Color, NormalBlending, ShaderMaterial, SphereGeometry } from "three";
 
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
@@ -34,12 +29,7 @@ export function Atmosphere() {
   const settings = getAtmosphereSettings(viewportWidth, prefersReducedMotion);
 
   const geometry = useMemo(
-    () =>
-      new SphereGeometry(
-        ATMOSPHERE_RADIUS,
-        settings.segments,
-        settings.segments,
-      ),
+    () => new SphereGeometry(ATMOSPHERE_RADIUS, settings.segments, settings.segments),
     [settings.segments],
   );
 
@@ -71,7 +61,5 @@ export function Atmosphere() {
     return null;
   }
 
-  return (
-    <mesh geometry={geometry} material={material} renderOrder={1} />
-  );
+  return <mesh geometry={geometry} material={material} renderOrder={1} />;
 }

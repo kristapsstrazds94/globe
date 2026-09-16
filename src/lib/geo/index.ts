@@ -16,6 +16,10 @@ export {
 } from "./geometry";
 export { buildCountryBufferGeometry } from "./countryGeometry";
 export {
+  appendCountryBorderSegments,
+  buildMergedCountryBordersBufferGeometry,
+} from "./countryBorderGeometry";
+export {
   openRingVertices,
   triangulateSpherePolygon,
   type SphereTriangulation,

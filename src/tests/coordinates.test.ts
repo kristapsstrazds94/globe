@@ -8,10 +8,7 @@ import {
   normalizeLongitude,
   spherePointLengthSquared,
 } from "@/lib/geo/coordinates";
-import {
-  getSphereRingWinding,
-  processedGeometryToSpherePolygons,
-} from "@/lib/geo/geometry";
+import { getSphereRingWinding, processedGeometryToSpherePolygons } from "@/lib/geo/geometry";
 
 const R = DEFAULT_SPHERE_RADIUS;
 const EPS = 1e-10;
@@ -93,11 +90,7 @@ describe("lonLatToSpherePoint", () => {
 
     const sample = (ix: number, iy: number) => {
       const index = (iy * (widthSegments + 1) + ix) * 3;
-      return [
-        positions[index]!,
-        positions[index + 1]!,
-        positions[index + 2]!,
-      ] as const;
+      return [positions[index]!, positions[index + 1]!, positions[index + 2]!] as const;
     };
 
     const north = sample(0, 0);
@@ -107,11 +100,7 @@ describe("lonLatToSpherePoint", () => {
     expectSpherePoint(south, lonLatToSpherePoint(0, -90, radius), 1e-5);
 
     const primeMeridian = sample(widthSegments / 2, heightSegments / 2);
-    expectSpherePoint(
-      primeMeridian,
-      lonLatToSpherePoint(0, 0, radius),
-      1e-4,
-    );
+    expectSpherePoint(primeMeridian, lonLatToSpherePoint(0, 0, radius), 1e-4);
 
     geometry.dispose();
   });
@@ -167,9 +156,7 @@ describe("processedGeometryToSpherePolygons", () => {
     });
 
     expect(multi).toHaveLength(2);
-    expect(multi[0]![0]![0]).toEqual(
-      lonLatPositionToSpherePoint([10, 10], R),
-    );
+    expect(multi[0]![0]![0]).toEqual(lonLatPositionToSpherePoint([10, 10], R));
   });
 
   it("preserves consistent ring orientation when vertex order is reversed", () => {

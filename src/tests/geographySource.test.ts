@@ -25,10 +25,8 @@ describe("GEOGRAPHY_SOURCE", () => {
 
   it("lists known limitations for downstream preprocessing", () => {
     expect(GEOGRAPHY_SOURCE.knownLimitations.length).toBeGreaterThanOrEqual(3);
-    expect(
-      GEOGRAPHY_SOURCE.knownLimitations.some((note) =>
-        note.includes("antimeridian"),
-      ),
-    ).toBe(true);
+    expect(GEOGRAPHY_SOURCE.knownLimitations.some((note) => note.includes("antimeridian"))).toBe(
+      true,
+    );
   });
 });

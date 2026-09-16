@@ -14,7 +14,7 @@ export const DEFAULT_SPHERE_RADIUS = 1;
 
 /** Normalize longitude to [-180, 180]. */
 export function normalizeLongitude(longitude: number): number {
-  const wrapped = ((longitude + 180) % 360 + 360) % 360 - 180;
+  const wrapped = ((((longitude + 180) % 360) + 360) % 360) - 180;
   return wrapped === -180 ? 180 : wrapped;
 }
 
@@ -39,11 +39,7 @@ export function lonLatToSpherePoint(
   const cosPhi = Math.cos(phi);
   const sinPhi = Math.sin(phi);
 
-  return [
-    -radius * cosPhi * sinTheta,
-    radius * cosTheta,
-    radius * sinPhi * sinTheta,
-  ];
+  return [-radius * cosPhi * sinTheta, radius * cosTheta, radius * sinPhi * sinTheta];
 }
 
 /** Convert a GeoJSON `[lon, lat]` position to a sphere point. */
