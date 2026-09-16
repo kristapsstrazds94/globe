@@ -216,7 +216,7 @@ Add subtle hover feedback and an HTML tooltip.
 
 ### T032 — Country selection
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Implement click/tap selection and persistent selected styling.
 

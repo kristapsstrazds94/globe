@@ -6,6 +6,7 @@ import type { Group, MeshStandardMaterial } from "three";
 export type CountryMaterials = {
   default: MeshStandardMaterial;
   hover: MeshStandardMaterial;
+  selected: MeshStandardMaterial;
 };
 
 type CountriesContextValue = {

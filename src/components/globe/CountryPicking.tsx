@@ -5,19 +5,21 @@ import { useEffect, useRef } from "react";
 import { Raycaster, Vector2 } from "three";
 
 import { pickCountryFromIntersections, pointerToNdc } from "@/lib/globe/countryPicking";
+import { isTapGesture, resolveSelectionFromPick } from "@/lib/globe/countrySelection";
 import { setHoverPointer } from "@/lib/globe/hoverPointer";
 import { isHoverCapableDevice } from "@/lib/ui/hoverCapable";
 import { useGlobeStore } from "@/stores/globeStore";
 
 import { useCountriesContext } from "./CountriesContext";
 
-/** Pointer raycasting against country fill meshes (T030) with hover pointer tracking (T031). */
+/** Pointer raycasting against country fill meshes (T030–T032). */
 export function CountryPicking() {
   const { camera, gl } = useThree();
   const { getCountryGroup } = useCountriesContext();
   const raycasterRef = useRef(new Raycaster());
   const pointerRef = useRef(new Vector2());
   const lastHoveredRef = useRef<string | null>(null);
+  const pointerDownRef = useRef<Pick<PointerEvent, "clientX" | "clientY"> | null>(null);
   const hoverCapableRef = useRef(false);
 
   useEffect(() => {
@@ -54,6 +56,16 @@ export function CountryPicking() {
       useGlobeStore.getState().setHoveredCountryId(id);
     };
 
+    const applySelection = (event: Pick<PointerEvent, "clientX" | "clientY">) => {
+      const result = resolveSelectionFromPick(pickAt(event));
+
+      if (result.type === "select") {
+        useGlobeStore.getState().setSelectedCountryId(result.countryId);
+      } else {
+        useGlobeStore.getState().clearSelection();
+      }
+    };
+
     const flushPick = () => {
       pickFrame = 0;
       if (!pendingPointer) {
@@ -81,6 +93,14 @@ export function CountryPicking() {
       pickFrame = requestAnimationFrame(flushPick);
     };
 
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      pointerDownRef.current = { clientX: event.clientX, clientY: event.clientY };
+    };
+
     const onPointerMove = (event: PointerEvent) => {
       setHoverPointer(event.clientX, event.clientY);
 
@@ -103,6 +123,19 @@ export function CountryPicking() {
       }
 
       schedulePick(event);
+
+      const pointerDown = pointerDownRef.current;
+      pointerDownRef.current = null;
+
+      if (!pointerDown || !isTapGesture(pointerDown, event)) {
+        return;
+      }
+
+      applySelection(event);
+
+      if (!hoverCapableRef.current || event.pointerType === "touch") {
+        setHovered(null);
+      }
     };
 
     const onPointerLeave = () => {
@@ -114,11 +147,13 @@ export function CountryPicking() {
       setHovered(null);
     };
 
+    canvas.addEventListener("pointerdown", onPointerDown);
     canvas.addEventListener("pointermove", onPointerMove);
     canvas.addEventListener("pointerup", onPointerUp);
     canvas.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
+      canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerup", onPointerUp);
       canvas.removeEventListener("pointerleave", onPointerLeave);

@@ -11,3 +11,10 @@ export const COUNTRY_HOVER_MATERIAL = {
   roughness: 0.72,
   metalness: 0.08,
 } as const;
+
+/** Restrained cyan/teal selection accent per docs/DESIGN.md. */
+export const COUNTRY_SELECTION_MATERIAL = {
+  color: "#2a8a9e",
+  roughness: 0.68,
+  metalness: 0.1,
+} as const;

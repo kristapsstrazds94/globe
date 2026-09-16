@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { Mesh } from "three";
 
+import { resolveCountryVisualMaterial } from "@/lib/globe/countrySelection";
 import { useGlobeStore } from "@/stores/globeStore";
 
 import { useCountriesContext } from "./CountriesContext";
@@ -18,11 +19,19 @@ export function CountryHoverVisual() {
       const hoveredMesh = hoveredMeshRef.current;
 
       if (hoveredMesh && materials) {
-        hoveredMesh.material = materials.default;
+        const countryId = hoveredMesh.userData.countryId as string;
+        const { selectedCountryId } = useGlobeStore.getState();
+        const visual = resolveCountryVisualMaterial(countryId, null, selectedCountryId);
+        hoveredMesh.material = materials[visual];
         hoveredMeshRef.current = null;
       }
 
       if (hoveredId === null || !materials) {
+        return;
+      }
+
+      const { selectedCountryId } = useGlobeStore.getState();
+      if (hoveredId === selectedCountryId) {
         return;
       }
 

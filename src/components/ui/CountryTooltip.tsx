@@ -12,9 +12,10 @@ import { useGlobeStore } from "@/stores/globeStore";
 export function CountryTooltip() {
   const tooltipRef = useRef<HTMLDivElement>(null);
   const hoveredCountryId = useGlobeStore((state) => state.hoveredCountryId);
+  const selectedCountryId = useGlobeStore((state) => state.selectedCountryId);
   const countryName = hoveredCountryId ? getCountryNameById(hoveredCountryId) : null;
   const hoverCapable = isHoverCapableDevice();
-  const visible = hoverCapable && countryName !== null;
+  const visible = hoverCapable && countryName !== null && selectedCountryId === null;
 
   useEffect(() => {
     const tooltip = tooltipRef.current;

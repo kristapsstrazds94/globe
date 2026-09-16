@@ -6,14 +6,16 @@ import { Group, Mesh, MeshStandardMaterial } from "three";
 import { geographyBundle } from "@/data/geography";
 import { buildCountryBufferGeometry } from "@/lib/geo/countryGeometry";
 
-import { COUNTRY_HOVER_MATERIAL, COUNTRY_MATERIAL } from "./countryConfig";
+import {
+  COUNTRY_HOVER_MATERIAL,
+  COUNTRY_MATERIAL,
+  COUNTRY_SELECTION_MATERIAL,
+} from "./countryConfig";
 import { useCountriesContext } from "./CountriesContext";
+import type { CountryMaterials } from "./CountriesContext";
 import { COUNTRY_LAYER_RADIUS } from "./earthConfig";
 
-function createCountryMaterials(): {
-  default: MeshStandardMaterial;
-  hover: MeshStandardMaterial;
-} {
+function createCountryMaterials(): CountryMaterials {
   return {
     default: new MeshStandardMaterial({
       color: COUNTRY_MATERIAL.color,
@@ -24,6 +26,11 @@ function createCountryMaterials(): {
       color: COUNTRY_HOVER_MATERIAL.color,
       roughness: COUNTRY_HOVER_MATERIAL.roughness,
       metalness: COUNTRY_HOVER_MATERIAL.metalness,
+    }),
+    selected: new MeshStandardMaterial({
+      color: COUNTRY_SELECTION_MATERIAL.color,
+      roughness: COUNTRY_SELECTION_MATERIAL.roughness,
+      metalness: COUNTRY_SELECTION_MATERIAL.metalness,
     }),
   };
 }
@@ -84,6 +91,7 @@ export function Countries() {
     return () => {
       materials.default.dispose();
       materials.hover.dispose();
+      materials.selected.dispose();
     };
   }, [materials]);
 

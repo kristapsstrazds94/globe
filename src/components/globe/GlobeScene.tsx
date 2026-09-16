@@ -6,6 +6,7 @@ import { Countries } from "./Countries";
 import { CountriesProvider } from "./CountriesContext";
 import { CountryHoverVisual } from "./CountryHoverVisual";
 import { CountryPicking } from "./CountryPicking";
+import { CountrySelectionVisual } from "./CountrySelectionVisual";
 import { Earth } from "./Earth";
 import { GLOBE_GEO_SCALE, GLOBE_LIGHTING } from "./earthConfig";
 import { GlobeControls } from "./GlobeControls";
@@ -18,6 +19,7 @@ export function GlobeScene() {
       <GlobeControls />
       <CountryPicking />
       <CountryHoverVisual />
+      <CountrySelectionVisual />
       <Stars />
       <ambientLight intensity={GLOBE_LIGHTING.ambientIntensity} />
       <directionalLight
