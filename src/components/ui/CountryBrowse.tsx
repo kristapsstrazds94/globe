@@ -145,9 +145,18 @@ export function CountryBrowseTrigger() {
       className="country-browse__trigger"
       aria-haspopup="dialog"
       aria-controls="country-browse-list"
+      aria-label="Browse countries"
       onClick={open}
     >
-      Browse countries
+      <span aria-hidden="true" className="country-browse__trigger-text country-browse__trigger-text--full">
+        Browse countries
+      </span>
+      <span
+        aria-hidden="true"
+        className="country-browse__trigger-text country-browse__trigger-text--compact"
+      >
+        Browse
+      </span>
     </button>
   );
 }

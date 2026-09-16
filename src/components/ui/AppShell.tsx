@@ -34,7 +34,7 @@ export function AppShell() {
                   <CountryBrowseTrigger />
                 </nav>
               </div>
-              <p id="globe-app-instructions" className="globe-app__subtitle">
+              <p id="globe-app-instructions" className="globe-app__subtitle globe-app__subtitle--collapsible">
                 Drag to rotate, scroll or pinch to zoom. Search or browse the country list to
                 select without the globe. Focus the globe and use arrow keys, or use the navigation
                 controls.

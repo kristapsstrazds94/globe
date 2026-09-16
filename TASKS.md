@@ -301,7 +301,7 @@ Respect `prefers-reduced-motion`.
 
 ### T043 — Responsive UI system
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Implement mobile/tablet/desktop layouts according to `docs/DESIGN.md`.
 
