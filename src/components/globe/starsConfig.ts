@@ -1,9 +1,9 @@
 import { GLOBE_COLORS, GLOBE_MATERIAL } from "@/lib/design/globeTokens";
 
-import { GLOBE_CAMERA } from "./cameraConfig";
+import { GLOBE_CAMERA_MIN_FAR } from "./cameraConfig";
 
 /** Large inward-facing star dome — camera sits near the origin inside this shell. */
-export const STARS_RADIUS = GLOBE_CAMERA.far * 0.85;
+export const STARS_RADIUS = GLOBE_CAMERA_MIN_FAR * 0.85;
 
 export const STARS_MAX_COUNT = 3500;
 

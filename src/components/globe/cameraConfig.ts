@@ -3,6 +3,12 @@ import { cameraPositionForViewCenter, GLOBE_CAMERA_VIEW, GLOBE_RADIUS } from "./
 /** Default orbit distance — must stay within {@link GLOBE_CAMERA_CONSTRAINTS}. */
 export const GLOBE_CAMERA_DISTANCE = 3.5;
 
+/**
+ * Minimum camera far plane at every zoom level — must fit the star dome
+ * ({@link STARS_RADIUS} in starsConfig). GlobeControls raises far when zoomed out.
+ */
+export const GLOBE_CAMERA_MIN_FAR = 50;
+
 /** Default globe camera composition for desktop and mobile viewports. */
 export const GLOBE_CAMERA = {
   position: cameraPositionForViewCenter(
@@ -12,8 +18,7 @@ export const GLOBE_CAMERA = {
   ),
   fov: 45,
   near: 0.1,
-  /** Tighter far plane improves depth precision for country borders when zoomed out. */
-  far: 50,
+  far: GLOBE_CAMERA_MIN_FAR,
 } as const;
 
 /**
@@ -26,3 +31,12 @@ export const GLOBE_CAMERA_CONSTRAINTS = {
   minPolarAngle: 0.15,
   maxPolarAngle: Math.PI - 0.15,
 } as const;
+
+/** Dynamic far plane for orbit distance — keeps stars inside the frustum. */
+export function getGlobeCameraFar(distance: number): number {
+  return Math.max(
+    GLOBE_CAMERA_MIN_FAR,
+    GLOBE_CAMERA_CONSTRAINTS.maxDistance * 4,
+    distance * 8,
+  );
+}

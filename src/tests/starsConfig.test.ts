@@ -8,7 +8,7 @@ import {
   getStarCount,
   getStarQualityTier,
 } from "@/components/globe/starsConfig";
-import { GLOBE_CAMERA } from "@/components/globe/cameraConfig";
+import { GLOBE_CAMERA_MIN_FAR, getGlobeCameraFar, GLOBE_CAMERA_CONSTRAINTS } from "@/components/globe/cameraConfig";
 
 describe("getStarQualityTier", () => {
   it("uses low tier on mobile widths", () => {
@@ -88,7 +88,12 @@ describe("buildStarPositions", () => {
 });
 
 describe("STARS_RADIUS", () => {
-  it("fits within the camera far plane", () => {
-    expect(STARS_RADIUS).toBeLessThan(GLOBE_CAMERA.far);
+  it("fits within the camera far plane at minimum zoom", () => {
+    const farAtMinZoom = getGlobeCameraFar(GLOBE_CAMERA_CONSTRAINTS.minDistance);
+    expect(STARS_RADIUS).toBeLessThan(farAtMinZoom);
+  });
+
+  it("fits within the static minimum far plane", () => {
+    expect(STARS_RADIUS).toBeLessThan(GLOBE_CAMERA_MIN_FAR);
   });
 });

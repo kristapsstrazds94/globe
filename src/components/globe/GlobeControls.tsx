@@ -6,7 +6,7 @@ import { OrbitControls as ThreeOrbitControls } from "three/examples/jsm/controls
 
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
-import { GLOBE_CAMERA_CONSTRAINTS } from "./cameraConfig";
+import { getGlobeCameraFar, GLOBE_CAMERA_CONSTRAINTS } from "./cameraConfig";
 import { GLOBE_CONTROLS, getControlsDampingSettings } from "./controlsConfig";
 import { orbitGlobeByStep, resetGlobeView, zoomGlobeByScale } from "./globeControlsNavigation";
 import { useGlobeControlsContext } from "./GlobeControlsContext";
@@ -144,7 +144,7 @@ export function GlobeControls() {
 
     const distance = camera.position.distanceTo(controls.target);
     camera.near = Math.max(0.05, distance / 200);
-    camera.far = Math.max(GLOBE_CAMERA_CONSTRAINTS.maxDistance * 4, distance * 8);
+    camera.far = getGlobeCameraFar(distance);
     camera.updateProjectionMatrix();
   });
 
