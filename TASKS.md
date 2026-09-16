@@ -189,7 +189,7 @@ Add subtle borders without excessive geometry or line thickness.
 
 ### T030 — Country raycasting
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Implement pointer picking from rendered geographic geometry.
 

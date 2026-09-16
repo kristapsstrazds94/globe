@@ -7,6 +7,7 @@ import { geographyBundle } from "@/data/geography";
 import { buildCountryBufferGeometry } from "@/lib/geo/countryGeometry";
 
 import { COUNTRY_MATERIAL } from "./countryConfig";
+import { useCountriesContext } from "./CountriesContext";
 import { COUNTRY_LAYER_RADIUS } from "./earthConfig";
 
 function createCountryMaterial(): MeshStandardMaterial {
@@ -37,10 +38,16 @@ function buildCountryMeshes(material: MeshStandardMaterial): Mesh[] {
   return meshes;
 }
 
-/** Country fill layer — one Three.js mesh per country for future picking (T030). */
+/** Country fill layer — one Three.js mesh per country for picking (T030). */
 export function Countries() {
   const groupRef = useRef<Group>(null);
+  const { register } = useCountriesContext();
   const material = useMemo(() => createCountryMaterial(), []);
+
+  useEffect(() => {
+    register(groupRef.current);
+    return () => register(null);
+  }, [register]);
 
   useEffect(() => {
     const group = groupRef.current;

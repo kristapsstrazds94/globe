@@ -3,6 +3,8 @@
 import { Atmosphere } from "./Atmosphere";
 import { CountryBorders } from "./CountryBorders";
 import { Countries } from "./Countries";
+import { CountriesProvider } from "./CountriesContext";
+import { CountryPicking } from "./CountryPicking";
 import { Earth } from "./Earth";
 import { GLOBE_GEO_SCALE, GLOBE_LIGHTING } from "./earthConfig";
 import { GlobeControls } from "./GlobeControls";
@@ -11,8 +13,9 @@ import { Stars } from "./Stars";
 /** R3F scene — stars stay fixed while the camera orbits the Earth (T014). */
 export function GlobeScene() {
   return (
-    <>
+    <CountriesProvider>
       <GlobeControls />
+      <CountryPicking />
       <Stars />
       <ambientLight intensity={GLOBE_LIGHTING.ambientIntensity} />
       <directionalLight
@@ -29,6 +32,6 @@ export function GlobeScene() {
         <CountryBorders />
         <Atmosphere />
       </group>
-    </>
+    </CountriesProvider>
   );
 }

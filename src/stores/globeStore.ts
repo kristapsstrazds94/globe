@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 export type GlobeStoreState = {
   hoveredCountryId: string | null;
@@ -17,18 +18,38 @@ export type GlobeStoreActions = {
 
 export type GlobeStore = GlobeStoreState & GlobeStoreActions;
 
-export const useGlobeStore = create<GlobeStore>((set) => ({
-  hoveredCountryId: null,
-  selectedCountryId: null,
-  searchQuery: "",
-  isPanelOpen: false,
-  setHoveredCountryId: (id) => set({ hoveredCountryId: id }),
-  setSelectedCountryId: (id) =>
-    set({
-      selectedCountryId: id,
-      isPanelOpen: id !== null,
+export const useGlobeStore = create<GlobeStore>()(
+  devtools(
+    (set) => ({
+      hoveredCountryId: null,
+      selectedCountryId: null,
+      searchQuery: "",
+      isPanelOpen: false,
+      setHoveredCountryId: (id) =>
+        set(
+          (state) => (state.hoveredCountryId === id ? state : { hoveredCountryId: id }),
+          false,
+          "setHoveredCountryId",
+        ),
+      setSelectedCountryId: (id) =>
+        set(
+          {
+            selectedCountryId: id,
+            isPanelOpen: id !== null,
+          },
+          false,
+          "setSelectedCountryId",
+        ),
+      setSearchQuery: (query) => set({ searchQuery: query }, false, "setSearchQuery"),
+      setPanelOpen: (open) => set({ isPanelOpen: open }, false, "setPanelOpen"),
+      clearSelection: () =>
+        set({ selectedCountryId: null, isPanelOpen: false }, false, "clearSelection"),
     }),
-  setSearchQuery: (query) => set({ searchQuery: query }),
-  setPanelOpen: (open) => set({ isPanelOpen: open }),
-  clearSelection: () => set({ selectedCountryId: null, isPanelOpen: false }),
-}));
+    {
+      name: "GlobeStore",
+      enabled: process.env.NODE_ENV === "development",
+      /** Cap Redux DevTools history — hover changes can arrive in quick bursts. */
+      maxAge: 50,
+    },
+  ),
+);
