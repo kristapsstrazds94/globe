@@ -50,7 +50,7 @@ Add automated checks for install, lint, typecheck, unit tests, and production bu
 
 ### T010 — Create R3F canvas shell
 
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Create the Three.js/R3F rendering surface with responsive sizing and a controlled camera.
 
@@ -63,7 +63,7 @@ Create the Three.js/R3F rendering surface with responsive sizing and a controlle
 
 ### T011 — Build base Earth sphere
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Render a clean sphere with appropriate scale, lighting, material, and camera composition.
 
