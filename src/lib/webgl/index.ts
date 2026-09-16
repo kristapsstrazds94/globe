@@ -1,0 +1,1 @@
+export { isWebGLAvailable } from "./isWebGLAvailable";

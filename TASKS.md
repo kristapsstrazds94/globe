@@ -50,7 +50,7 @@ Add automated checks for install, lint, typecheck, unit tests, and production bu
 
 ### T010 — Create R3F canvas shell
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Create the Three.js/R3F rendering surface with responsive sizing and a controlled camera.
 

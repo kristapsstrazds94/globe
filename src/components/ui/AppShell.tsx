@@ -13,7 +13,7 @@ export function AppShell() {
         <header className="globe-app__header">
           <h1 className="globe-app__title">World Globe</h1>
           <p className="globe-app__subtitle">
-            Interactive 3D globe — rendering foundation coming next.
+            Interactive 3D globe — drag and explore in later milestones.
           </p>
         </header>
       </div>
