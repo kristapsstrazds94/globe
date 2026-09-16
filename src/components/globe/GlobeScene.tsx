@@ -3,12 +3,14 @@
 import { Atmosphere } from "./Atmosphere";
 import { Earth } from "./Earth";
 import { GLOBE_LIGHTING } from "./earthConfig";
+import { GlobeControls } from "./GlobeControls";
 import { Stars } from "./Stars";
 
-/** R3F scene — stars stay fixed; Earth group rotates together in T014. */
+/** R3F scene — stars stay fixed while the camera orbits the Earth (T014). */
 export function GlobeScene() {
   return (
     <>
+      <GlobeControls />
       <Stars />
       <ambientLight intensity={GLOBE_LIGHTING.ambientIntensity} />
       <directionalLight

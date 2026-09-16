@@ -102,7 +102,7 @@ Implement a subtle atmospheric rim/glow, preferably with a lightweight shader or
 
 ### T014 — Add globe controls
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Implement pointer and touch rotation, wheel/pinch zoom, inertia where appropriate, and sensible camera limits.
 
