@@ -275,7 +275,7 @@ Add fast country search with keyboard navigation.
 
 ### T041 — Accessible country selection
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Provide a non-canvas accessible country navigation path.
 

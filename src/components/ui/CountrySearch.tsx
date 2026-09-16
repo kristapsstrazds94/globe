@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
-import { useGlobeControlsContext } from "@/components/globe/GlobeControlsContext";
 import { countries } from "@/data/countries";
 import { searchCountries } from "@/lib/search/countrySearch";
+import { useSelectCountry } from "@/lib/ui/useSelectCountry";
 import { useGlobeStore } from "@/stores/globeStore";
 
 /** Fast country search with keyboard navigation (T040). */
@@ -12,8 +12,7 @@ export function CountrySearch() {
   const listboxId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { getFlyToController } = useGlobeControlsContext();
-  const setSelectedCountryId = useGlobeStore((state) => state.setSelectedCountryId);
+  const selectCountryFromUI = useSelectCountry();
   const setSearchQuery = useGlobeStore((state) => state.setSearchQuery);
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -24,20 +23,14 @@ export function CountrySearch() {
 
   const selectCountry = useCallback(
     (countryId: string) => {
-      const previousSelectedCountryId = useGlobeStore.getState().selectedCountryId;
-      setSelectedCountryId(countryId);
-
-      if (previousSelectedCountryId === countryId) {
-        getFlyToController()?.start(countryId);
-      }
-
+      selectCountryFromUI(countryId);
       setQuery("");
       setSearchQuery("");
       setActiveIndex(-1);
       setIsOpen(false);
       inputRef.current?.blur();
     },
-    [getFlyToController, setSearchQuery, setSelectedCountryId],
+    [selectCountryFromUI, setSearchQuery],
   );
 
   useEffect(() => {
@@ -135,6 +128,7 @@ export function CountrySearch() {
         aria-activedescendant={
           showResults && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined
         }
+        aria-describedby="globe-app-instructions"
         placeholder="Search countries"
         autoComplete="off"
         spellCheck={false}
@@ -169,6 +163,7 @@ export function CountrySearch() {
               <button
                 type="button"
                 className="country-search__option-button"
+                aria-label={`Select ${result.country.name}`}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => selectCountry(result.country.id)}
               >
