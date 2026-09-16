@@ -15,13 +15,13 @@ describe("withBasePath", () => {
     vi.stubEnv("NEXT_PUBLIC_BASE_PATH", "");
     const { withBasePath } = await loadBasePathModule();
 
-    expect(withBasePath("/brand/globe-logo.svg")).toBe("/brand/globe-logo.svg");
+    expect(withBasePath("/brand/globe-logo.webp")).toBe("/brand/globe-logo.webp");
   });
 
   it("prefixes absolute paths with the GitHub Pages subpath", async () => {
     vi.stubEnv("NEXT_PUBLIC_BASE_PATH", "/globe");
     const { withBasePath } = await loadBasePathModule();
 
-    expect(withBasePath("/brand/globe-logo.svg")).toBe("/globe/brand/globe-logo.svg");
+    expect(withBasePath("/brand/globe-logo.webp")).toBe("/globe/brand/globe-logo.webp");
   });
 });

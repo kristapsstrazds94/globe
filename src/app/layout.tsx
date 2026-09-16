@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   title: "Pintrip",
   description: "Explore countries on an interactive 3D globe — plan your next trip.",
   icons: {
-    icon: withBasePath("/brand/globe-logo.svg"),
-    apple: withBasePath("/brand/globe-logo.svg"),
+    icon: withBasePath("/brand/globe-logo.webp"),
+    apple: withBasePath("/brand/globe-logo.webp"),
   },
 };
 
