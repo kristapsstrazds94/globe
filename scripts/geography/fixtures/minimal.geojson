@@ -5,6 +5,7 @@
       "type": "Feature",
       "properties": {
         "ADM0_A3": "AAA",
+        "ISO_A2_EH": "AA",
         "NAME": "Alpha",
         "NAME_LONG": "Alpha Republic"
       },
@@ -25,6 +26,7 @@
       "type": "Feature",
       "properties": {
         "ADM0_A3": "BBB",
+        "ISO_A2_EH": "BB",
         "NAME": "Beta Isles"
       },
       "geometry": {

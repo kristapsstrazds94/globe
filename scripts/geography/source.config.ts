@@ -33,6 +33,8 @@ export type GeographySourceConfig = {
     primary: "ADM0_A3";
     /** Preferred ISO 3166-1 alpha-3 for external metadata joins. */
     externalJoin: "ISO_A3_EH";
+    /** Preferred ISO 3166-1 alpha-2 for flag emoji and external joins. */
+    isoAlpha2: "ISO_A2_EH";
     /** Short cartographic label — not suitable as a primary key. */
     displayName: "NAME";
     longName: "NAME_LONG";
@@ -84,6 +86,7 @@ export const GEOGRAPHY_SOURCE: GeographySourceConfig = {
   identifiers: {
     primary: "ADM0_A3",
     externalJoin: "ISO_A3_EH",
+    isoAlpha2: "ISO_A2_EH",
     displayName: "NAME",
     longName: "NAME_LONG",
     region: "CONTINENT",

@@ -1,5 +1,5 @@
 import { GEOGRAPHY_SOURCE } from "../source.config";
-import { normalizeCountryId, normalizeCountryName } from "./normalize";
+import { normalizeCountryId, normalizeCountryName, normalizeIsoAlpha2 } from "./normalize";
 import { roundMultiPolygonCoordinates, roundPolygonCoordinates } from "./round";
 import { simplifyGeometry } from "./simplify";
 import type { ProcessedCountryRecord, ProcessedGeometry, RawCountryFeature } from "./types";
@@ -12,8 +12,9 @@ export function extractCountryRecord(
   const properties = feature.properties ?? {};
   const id = normalizeCountryId(properties[GEOGRAPHY_SOURCE.identifiers.primary]);
   const name = normalizeCountryName(properties[GEOGRAPHY_SOURCE.identifiers.displayName]);
+  const isoA2 = normalizeIsoAlpha2(properties[GEOGRAPHY_SOURCE.identifiers.isoAlpha2]);
 
-  if (id === null || name === null) {
+  if (id === null || name === null || isoA2 === null) {
     return null;
   }
 
@@ -30,5 +31,5 @@ export function extractCountryRecord(
           coordinates: roundMultiPolygonCoordinates(simplified.coordinates, coordinatePrecision),
         };
 
-  return { id, name, geometry };
+  return { id, name, isoA2, geometry };
 }

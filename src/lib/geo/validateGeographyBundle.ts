@@ -64,6 +64,10 @@ export function validateGeographyBundle(value: unknown): GeographyValidationResu
       return { ok: false, error: "Geography data contains countries without names." };
     }
 
+    if (typeof feature.isoA2 !== "string" || !/^[A-Z]{2}$/.test(feature.isoA2)) {
+      return { ok: false, error: "Geography data contains countries without ISO codes." };
+    }
+
     if (!isProcessedGeometry(feature.geometry)) {
       return { ok: false, error: "Geography data contains invalid country geometry." };
     }

@@ -7,9 +7,9 @@ import type { Country } from "@/types";
 describe("sortCountriesByName", () => {
   it("sorts countries alphabetically by name", () => {
     const sample: Country[] = [
-      { id: "ZWE", name: "Zimbabwe" },
-      { id: "ALB", name: "Albania" },
-      { id: "NOR", name: "Norway" },
+      { id: "ZWE", name: "Zimbabwe", isoA2: "ZW" },
+      { id: "ALB", name: "Albania", isoA2: "AL" },
+      { id: "NOR", name: "Norway", isoA2: "NO" },
     ];
 
     expect(sortCountriesByName(sample).map((country) => country.id)).toEqual(["ALB", "NOR", "ZWE"]);
@@ -17,8 +17,8 @@ describe("sortCountriesByName", () => {
 
   it("breaks ties by country id", () => {
     const sample: Country[] = [
-      { id: "BBB", name: "Example" },
-      { id: "AAA", name: "Example" },
+      { id: "BBB", name: "Example", isoA2: "BB" },
+      { id: "AAA", name: "Example", isoA2: "AA" },
     ];
 
     expect(sortCountriesByName(sample).map((country) => country.id)).toEqual(["AAA", "BBB"]);

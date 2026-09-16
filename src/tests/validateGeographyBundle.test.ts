@@ -24,7 +24,9 @@ describe("validateGeographyBundle", () => {
     const result = validateGeographyBundle({
       schemaVersion: 2,
       sourceVersion: "test",
-      features: [{ id: "NOR", name: "Norway", geometry: { type: "Polygon", coordinates: [] } }],
+      features: [
+        { id: "NOR", name: "Norway", isoA2: "NO", geometry: { type: "Polygon", coordinates: [] } },
+      ],
     });
 
     expect(result.ok).toBe(false);
@@ -52,7 +54,9 @@ describe("validateGeographyBundle", () => {
       schemaVersion: 1,
       sourceVersion: "test",
       featureCount: 2,
-      features: [{ id: "NOR", name: "Norway", geometry: { type: "Polygon", coordinates: [] } }],
+      features: [
+        { id: "NOR", name: "Norway", isoA2: "NO", geometry: { type: "Polygon", coordinates: [] } },
+      ],
     });
 
     expect(result).toEqual({
@@ -65,7 +69,14 @@ describe("validateGeographyBundle", () => {
     const result = validateGeographyBundle({
       schemaVersion: 1,
       sourceVersion: "test",
-      features: [{ id: "NOR", name: "Norway", geometry: { type: "Point", coordinates: [0, 0] } }],
+      features: [
+        {
+          id: "NOR",
+          name: "Norway",
+          isoA2: "NO",
+          geometry: { type: "Point", coordinates: [0, 0] },
+        },
+      ],
     });
 
     expect(result.ok).toBe(false);

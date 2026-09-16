@@ -24,6 +24,7 @@ export type ProcessedGeometry =
 export type ProcessedCountryRecord = {
   id: string;
   name: string;
+  isoA2: string;
   geometry: ProcessedGeometry;
 };
 

@@ -4,7 +4,7 @@ import { getCountryById, getCountryNameById } from "@/lib/globe/countryLookup";
 
 describe("countryLookup", () => {
   it("returns verified country metadata for a known id", () => {
-    expect(getCountryById("NOR")).toEqual({ id: "NOR", name: "Norway" });
+    expect(getCountryById("NOR")).toEqual({ id: "NOR", name: "Norway", isoA2: "NO" });
     expect(getCountryById("USA")).toMatchObject({
       id: "USA",
       name: "United States of America",

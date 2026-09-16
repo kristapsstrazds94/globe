@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "check": "pnpm test && pnpm lint && pnpm typecheck && pnpm build && pnpm format:check",
     "geography:fetch": "tsx scripts/geography/preprocess.ts --fetch-only",
     "geography:build": "tsx scripts/geography/preprocess.ts",
     "perf:measure": "tsx scripts/performance/measure-baseline.ts"

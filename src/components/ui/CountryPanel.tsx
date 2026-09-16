@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { CloseIcon } from "@/components/ui/CloseIcon";
+import { CountryFlag } from "@/components/ui/CountryFlag";
 import { getCountryPanelTransitionMs } from "@/lib/design/interactionMotion";
 import { getCountryById } from "@/lib/globe/countryLookup";
 import { isCountryPanelVisible } from "@/lib/ui/countryPanelVisibility";
@@ -95,7 +97,8 @@ export function CountryPanel() {
     >
       <header className="country-panel__header">
         <h2 id="country-panel-title" className="country-panel__title">
-          {displayCountry.name}
+          <CountryFlag isoA2={displayCountry.isoA2} className="country-panel__flag" />
+          <span className="country-panel__name">{displayCountry.name}</span>
         </h2>
         <button
           ref={closeButtonRef}
@@ -104,7 +107,7 @@ export function CountryPanel() {
           aria-label="Close country details"
           onClick={() => setPanelOpen(false)}
         >
-          Close
+          <CloseIcon className="country-panel__close-icon" />
         </button>
       </header>
       <dl className="country-panel__meta">

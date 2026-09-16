@@ -7,5 +7,6 @@ import { geographyBundle } from "./geography";
 export const countries: Country[] = geographyBundle.features.map((feature) => ({
   id: feature.id,
   name: feature.name,
+  isoA2: feature.isoA2,
   aliases: countrySearchAliases[feature.id],
 }));

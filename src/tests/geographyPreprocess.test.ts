@@ -4,7 +4,11 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { extractCountryRecord } from "../../scripts/geography/lib/extract";
-import { normalizeCountryId, normalizeCountryName } from "../../scripts/geography/lib/normalize";
+import {
+  normalizeCountryId,
+  normalizeCountryName,
+  normalizeIsoAlpha2,
+} from "../../scripts/geography/lib/normalize";
 import { processFeatureCollection } from "../../scripts/geography/lib/process";
 import { roundPolygonCoordinates, roundPosition } from "../../scripts/geography/lib/round";
 import { simplifyGeometry } from "../../scripts/geography/lib/simplify";
@@ -35,6 +39,13 @@ describe("geography preprocessing helpers", () => {
     expect(normalizeCountryName("")).toBeNull();
   });
 
+  it("normalizes ISO 3166-1 alpha-2 codes", () => {
+    expect(normalizeIsoAlpha2(" no ")).toBe("NO");
+    expect(normalizeIsoAlpha2("US")).toBe("US");
+    expect(normalizeIsoAlpha2("-99")).toBeNull();
+    expect(normalizeIsoAlpha2(null)).toBeNull();
+  });
+
   it("validates supported GeoJSON features", () => {
     const collection = loadFixture();
     const feature = validateCountryFeature(collection.features[0], 0);
@@ -52,6 +63,7 @@ describe("geography preprocessing helpers", () => {
     expect(alpha).toEqual({
       id: "AAA",
       name: "Alpha",
+      isoA2: "AA",
       geometry: {
         type: "Polygon",
         coordinates: [
