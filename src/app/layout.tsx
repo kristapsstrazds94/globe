@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const titleFont = Outfit({
   subsets: ["latin"],
   weight: ["500"],
@@ -14,8 +16,8 @@ export const metadata: Metadata = {
   title: "Pintrip",
   description: "Explore countries on an interactive 3D globe — plan your next trip.",
   icons: {
-    icon: "/brand/globe-logo.webp",
-    apple: "/brand/globe-logo.webp",
+    icon: `${basePath}/brand/globe-logo.webp`,
+    apple: `${basePath}/brand/globe-logo.webp`,
   },
 };
 

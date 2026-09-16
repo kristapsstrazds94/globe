@@ -63,6 +63,12 @@ GitHub Actions runs the same baseline checks on every push and pull request to `
 
 The workflow lives at `.github/workflows/ci.yml` and does not require secrets for these checks.
 
+### GitHub Pages
+
+The app exports to static files and deploys via `.github/workflows/deploy-pages.yml`.
+
+See **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for the full setup guide (repo creation, Pages settings, local static preview, custom domain).
+
 ## Project structure
 
 Source layout follows `docs/ARCHITECTURE.md`:
