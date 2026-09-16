@@ -14,4 +14,10 @@ export {
   processedGeometryToSpherePolygons,
   type GeometryRef,
 } from "./geometry";
+export { buildCountryBufferGeometry } from "./countryGeometry";
+export {
+  openRingVertices,
+  triangulateSpherePolygon,
+  type SphereTriangulation,
+} from "./sphereTriangulation";
 export type { GeoCentroid } from "./centroid";

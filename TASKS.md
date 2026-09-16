@@ -160,7 +160,7 @@ Implement robust longitude/latitude to 3D sphere coordinate conversion.
 
 ### T023 — Render country layer
 
-**Status:** NOT STARTED
+**Status:** DONE
 
 Render all countries/required geographic entities above the Earth surface.
 

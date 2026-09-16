@@ -1,6 +1,7 @@
 "use client";
 
 import { Atmosphere } from "./Atmosphere";
+import { Countries } from "./Countries";
 import { Earth } from "./Earth";
 import { GLOBE_LIGHTING } from "./earthConfig";
 import { GlobeControls } from "./GlobeControls";
@@ -23,6 +24,7 @@ export function GlobeScene() {
       />
       <group>
         <Earth />
+        <Countries />
         <Atmosphere />
       </group>
     </>
